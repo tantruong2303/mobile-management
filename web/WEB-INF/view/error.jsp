@@ -12,8 +12,16 @@
         <title>Error Page</title>
     </head>
     <body>
+         <%
+            String errorMessage = (String) request.getAttribute("errorMessage");
+           
+            if (errorMessage == null) {
+                errorMessage = "Page not found!";
+            }
+        
+        %>
         <div class="text-center">
-            <h1>Page Not Found</h1>
+            <h1><%= errorMessage %></h1>
             <a href="IndexController">
                 Go Back To Home
             </a >
