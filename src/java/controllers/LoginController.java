@@ -41,8 +41,8 @@ public class LoginController extends HttpServlet {
         UserDAO userDAO = new UserDAO();
 
         // validate params
-        String userId = GetParam.getStringParam(request, "userId", "User ID", 1, 20);
-        Integer password = GetParam.getIntParams(request, "password", "Password", 1, Integer.MAX_VALUE);
+        String userId = GetParam.getStringParam(request, "userId", "User ID", 1, 20, null);
+        Integer password = GetParam.getIntParams(request, "password", "Password", 1, Integer.MAX_VALUE, null);
         if (userId == null || password == null) {
             return false;
         }
