@@ -4,6 +4,7 @@
     Author     : Lenovo
 --%>
 
+<%@page import="ultils.Urls"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -33,7 +34,7 @@
         %>
 
         <h1>Login From</h1>
-        <form action="LoginController" method = "POST">
+        <form action="<%=Urls.LOGIN %>" method = "POST">
             <table>
                 <tr>
                     <td>  </td>

@@ -73,7 +73,6 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         request.getRequestDispatcher(Urls.LOGIN_PAGE).forward(request, response);
     }
 
@@ -88,8 +87,6 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        response.setContentType("text/html;charset=UTF-8");
         try {
             if (processRequest(request, response)) {
                 Context env = (Context) new InitialContext().lookup("java:comp/env");
@@ -100,7 +97,7 @@ public class LoginController extends HttpServlet {
                 int role = (int) session.getAttribute("role");
 
                 if (role == userRole) {
-                    request.getRequestDispatcher(Urls.INDEX_PAGE).forward(request, response);
+                    request.getRequestDispatcher(Urls.USER_PAGE).forward(request, response);
                 }
                 if (role == staffRole) {
                     request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);

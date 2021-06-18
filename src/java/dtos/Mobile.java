@@ -28,6 +28,16 @@ public class Mobile {
         this.quantity = quantity;
         this.notSale = notSale;
     }
+    
+        public Mobile( String description, float price, String mobileName, int yearOfProduction, int quantity, boolean notSale) {
+        this.mobileId = mobileId;
+        this.description = description;
+        this.price = price;
+        this.mobileName = mobileName;
+        this.yearOfProduction = yearOfProduction;
+        this.quantity = quantity;
+        this.notSale = notSale;
+    }
 
     public String getMobileId() {
         return mobileId;

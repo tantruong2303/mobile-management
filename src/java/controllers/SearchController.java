@@ -10,7 +10,6 @@ import dtos.Mobile;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,8 +22,8 @@ import ultils.Urls;
  *
  * @author Lenovo
  */
-@WebServlet(name = "StaffController", urlPatterns = {"/StaffController"})
-public class StaffController extends HttpServlet {
+@WebServlet(name = "SearchController", urlPatterns = {"/SearchController"})
+public class SearchController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,12 +34,31 @@ public class StaffController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected boolean processRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
         MobileDAO mobileDAO = new MobileDAO();
-        
-        ArrayList<Mobile> mobileList = mobileDAO.getMobiles(0, Float.MAX_VALUE);
-        
-        request.setAttribute("mobileList", mobileList);
+
+        String search = GetParam.getStringParam(request, "search", "Name or ID", 1, 20, null);
+
+        if (search == null) {
+            return false;
+        }
+
+        ArrayList<Mobile> allMobileList = mobileDAO.getMobiles(0, Float.MAX_VALUE);
+        ArrayList<Mobile> result = new ArrayList<>();
+
+        for (int i = 0; i < allMobileList.size(); i++) {
+            if (allMobileList.get(i).getMobileId().contains(search) || allMobileList.get(i).getMobileName().contains(search)) {
+                result.add(allMobileList.get(i));
+            }
+        }
+
+        if (result.isEmpty()) {
+            request.setAttribute("errorMessage", "No result is found!");
+            return false;
+        }
+
+        request.setAttribute("mobileList", result);
         return true;
     }
 
@@ -57,11 +75,16 @@ public class StaffController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            processRequest(request, response);
-            request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
+            if (processRequest(request, response)) {
+                response.sendRedirect(Urls.STAFF);
+            }
+            else {
+                request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             request.getRequestDispatcher(Urls.ERROR_PAGE).forward(request, response);
         }
     }
+
 }

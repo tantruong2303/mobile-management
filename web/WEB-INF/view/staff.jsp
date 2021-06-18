@@ -4,6 +4,7 @@
     Author     : Lenovo
 --%>
 
+<%@page import="ultils.Urls"%>
 <%@page import="dtos.Mobile"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,48 +16,65 @@
     </head>
     <body>
         <%
-            String minPriceError = (String) request.getAttribute("minPriceError");
-            String maxPriceError = (String) request.getAttribute("maxPriceError");
+            String searchError = (String) request.getAttribute("searchError");
             String errorMessage = (String) request.getAttribute("errorMessage");
-            if (minPriceError == null) {
-                minPriceError = "";
-            }
-            if (maxPriceError == null) {
-                maxPriceError = "";
+            if (searchError == null) {
+                searchError = "";
             }
             if (errorMessage == null) {
                 errorMessage = "";
+            }
+            String mobileId = (String) request.getParameter("mobileId");
+            String mobileIdError = (String) request.getAttribute("mobileIdError");
+            String descriptionError = (String) request.getAttribute("descriptionError");
+            String priceError = (String) request.getAttribute("priceError");
+            String mobileNameError = (String) request.getAttribute("mobileNameError");
+            String yearOfProductionError = (String) request.getAttribute("yearOfProductionError");
+            String quantityError = (String) request.getAttribute("quantityError");
+            String notSaleError = (String) request.getAttribute("notSaleError");
+
+            if (mobileId == null) {
+                mobileId = "";
+            }
+            if (mobileIdError == null) {
+                mobileIdError = "";
+            }
+            if (descriptionError == null) {
+                descriptionError = "";
+            }
+            if (priceError == null) {
+                priceError = "";
+            }
+            if (mobileNameError == null) {
+                mobileNameError = "";
+            }
+            if (yearOfProductionError == null) {
+                yearOfProductionError = "";
+            }
+            if (quantityError == null) {
+                quantityError = "";
+            }
+            if (notSaleError == null) {
+                notSaleError = "";
             }
         %>
 
         <h1>Staff Menu</h1>
 
-        <table border="1"  style="text-align: center">
-            <form action="StaffController" method="GET">
-                <div>
-                    <div style="display: inline-block">
-                        <label for="minPrice">Min Price</label>
-                        <input type="number" name="minPrice" value="0" id="minPrice" />
-                    </div>
-                    <div style="display: inline-block">
-                        <label for="maxPrice">Max Price</label>
-                        <input type="number" name="maxPrice" value="9999999" id="maxPrice" />
-                    </div>
-                </div>
-                <button type="submit">Search</button> 
-                <button><a style="text-decoration: none; color: black" href="addMobile.jsp">ADD NEW MOBILE DEVICE</a></button>
-                <button><a style="text-decoration: none; color: black" href="servletController?action=logout">LOG OUT</a></button>
-                <p style="color: red"><%= errorMessage + minPriceError + maxPriceError %></p>
-            </form>
-            <% ArrayList<Mobile> mobileList = (ArrayList<Mobile>) request.getAttribute("mobileList");
-                if (mobileList == null) {
-                    mobileList = new ArrayList<>();
-                }
-                if (mobileList.size() != 0) {
-                    for (Mobile mobile : mobileList) {
-            %>
-            <tr>
-            </tr>
+
+        <form action="<%=Urls.SEARCH%>" method="GET">
+
+            <div>
+                <input type="text" name="search" placeholder="Enter Name or ID" />
+            </div>
+
+            <button type="submit">Search</button> 
+            <button><a style="text-decoration: none; color: black" href="<%= Urls.ADD_MOBILE%>">ADD NEW MOBILE DEVICE</a></button>
+            <button><a style="text-decoration: none; color: black" href="servletController?action=logout">LOG OUT</a></button>
+            <p style="color: red"><%= errorMessage + searchError%></p>
+        </form>
+        <table style="text-align: center" >
+
             <tr>
                 <td>Mobile ID</td>
                 <td>Mobile Name</td>
@@ -66,34 +84,74 @@
                 <td>Quantity</td>
                 <td>Not Sale</td>
             </tr>
+            <% ArrayList<Mobile> mobileList = (ArrayList<Mobile>) request.getAttribute("mobileList");
+                if (mobileList == null) {
+                    mobileList = new ArrayList<>();
+                }
+                if (mobileList.size() != 0) {
+                    for (Mobile mobile : mobileList) {
+            %>
+
 
             <tr>
-                <td><%= mobile.getMobileId()%></td>
-                <td><%= mobile.getMobileName()%></td>
-                <td><%= mobile.getPrice()%></td>
-                <td><%= mobile.getDescription()%></td>
-                <td><%= mobile.getYearOfProduction()%></td>
-                <td><%= mobile.getQuantity()%></td>
-                <td><%= mobile.isNotSale()%></td>
-                <td><a href="servletController?action=updateMobile&mobileId=<%= mobile.getMobileId()%>">Edit</a></td>
-                <td><a onclick="return confirmation()" href="servletController?action=deleteMobile&mobileId=<%= mobile.getMobileId()%>" >Delete</a></td>
-            </tr>
-            <%      }
-            } else {
+            <form action="<%= Urls.UPDATE_MOBILE%>" method="POST">
+                <tr>
+                    <td><input type="text" name="mobileId" value="<%= mobile.getMobileId()%>" readonly="true"/></td>
+                    <td><input type="text" name="mobileName" value="<%= mobile.getMobileName()%>"/></td>
+                    <td><input type="text" name="price" value="<%= mobile.getPrice()%>"/></td>
+                    <td><input type="text" name="description" value="<%= mobile.getDescription()%>"/></td>
+                    <td><input type="text" name="yearOfProduction" value="<%= mobile.getYearOfProduction()%>"/></td>
+                    <td><input type="text" name="quantity" value="<%= mobile.getQuantity()%>"/></td>
+                    <td> <% if (!mobile.isNotSale()) {
+                        %>
+                        <input type="radio" id="notSale" name="notSale" value="0" />
+                        <label for="notSale">Not sale</label>
+                        <input type="radio" id="sale" name="notSale" value="1" checked/>
+                        <label for="sale">Sale</label>
+                        <% } else {
+                        %>
+                        <input type="radio" id="notSale" name="notSale" value="0" checked/>
+                        <label for="notSale">Not sale</label>
+                        <input type="radio" id="sale" name="notSale" value="1" />
+                        <label for="sale">Sale</label>
+                        <% }
+                        %>
+                    </td> <td><button type="submit">Edit</button> </td>
+                    <td><a onclick="return confirmation()" href="servletController?action=deleteMobile&mobileId=<%= mobile.getMobileId()%>" >Delete</a></td>
+            </form>
+        </tr>
+        <tr>
+            <% if (mobile.getMobileId().equals(mobileId)) {
             %>
-            <h2> Mobile list is empty! </h2>
+            <td style="color: red"><%= mobileIdError%></td>
+            <td style="color: red"><%= mobileNameError%></td>
+            <td style="color: red"><%= priceError%></td>
+            <td style="color: red"><%= descriptionError%></td>
+            <td style="color: red"><%= yearOfProductionError%></td>
+            <td style="color: red"><%= quantityError%></td>
+            <td style="color: red"><%= notSaleError%></td>
             <%
                 }
             %>
+        </tr>
 
-        </table>
+    </tr>
+    <%      }
+    } else {
+    %>
+    <h2> Mobile list is empty! </h2>
+    <%
+        }
+    %>
+
+</table>
 
 
-        <script>
-            function confirmation() {
-                const message = confirm("Do you really want to delete this mobile?");
-                return message;
-            }
-        </script>
-    </body>
+<script>
+    function confirmation() {
+        const message = confirm("Do you really want to delete this mobile?");
+        return message;
+    }
+</script>
+</body>
 </html>

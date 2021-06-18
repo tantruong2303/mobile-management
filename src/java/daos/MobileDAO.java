@@ -36,6 +36,51 @@ public class MobileDAO {
         }
     }
 
+    public boolean addOneMobile(Mobile mobile) throws Exception {
+        boolean isSuccess = false;
+        try {
+            connection = Connector.getConnection();
+            String query = "INSERT INTO tbl_Mobile VALUES (?,?,?,?,?,?,?)";
+            preStm = connection.prepareStatement(query);
+            preStm.setString(1, mobile.getMobileId());
+            preStm.setString(2, mobile.getDescription());
+            preStm.setFloat(3, mobile.getPrice());
+            preStm.setString(4, mobile.getMobileName());
+            preStm.setInt(5, mobile.getYearOfProduction());
+            preStm.setInt(6, mobile.getQuantity());
+            preStm.setBoolean(7, mobile.isNotSale());
+
+            preStm.executeUpdate();
+            isSuccess = true;
+        } finally {
+            this.closeConnection();
+        }
+        return isSuccess;
+    }
+
+    public boolean updateOneMobile(Mobile mobile) throws Exception {
+        boolean isSuccess = false;
+        try {
+            connection = Connector.getConnection();
+            String query = "UPDATE tbl_Mobile SET description = ?, price = ?, mobileName = ?, yearOfProduction = ?, quantity = ?, notSale = ? WHERE mobileId = ?";
+            preStm = connection.prepareStatement(query);
+
+            preStm.setString(1, mobile.getDescription());
+            preStm.setFloat(2, mobile.getPrice());
+            preStm.setString(3, mobile.getMobileName());
+            preStm.setInt(4, mobile.getYearOfProduction());
+            preStm.setInt(5, mobile.getQuantity());
+            preStm.setBoolean(6, mobile.isNotSale());
+            preStm.setString(7, mobile.getMobileId());
+
+            preStm.executeUpdate();
+            isSuccess = true;
+        } finally {
+            this.closeConnection();
+        }
+        return isSuccess;
+    }
+
     public ArrayList<Mobile> getMobiles(float min, float max) throws Exception {
         ArrayList<Mobile> mobileList = new ArrayList<>();
         try {
@@ -65,4 +110,5 @@ public class MobileDAO {
         }
         return mobileList;
     }
+
 }
