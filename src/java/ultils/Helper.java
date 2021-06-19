@@ -6,8 +6,12 @@
 package ultils;
 
 import daos.MobileDAO;
+import daos.OrderDAO;
 import dtos.Mobile;
+import dtos.Order;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -47,12 +51,25 @@ public class Helper {
 
         return roleR != null && roleR >= minRole && roleR <= maxRole;
     }
-    
-    public static String generateId() throws Exception {
+
+    public static String generateMobileId() throws Exception {
         MobileDAO mobileDAO = new MobileDAO();
-        
+
         ArrayList<Mobile> list = mobileDAO.getMobiles(0, Float.MAX_VALUE);
-        
+
         return Integer.toString(list.size() + 1);
+    }
+
+    public static Integer generateOrderId() throws Exception {
+        OrderDAO orderDAO = new OrderDAO();
+
+        ArrayList<Order> list = orderDAO.getAllOrders();
+
+        return (list.size() + 1);
+    }
+
+    public static Date getCurrentDate() {
+        Date date = new Date(System.currentTimeMillis());
+        return date;
     }
 }

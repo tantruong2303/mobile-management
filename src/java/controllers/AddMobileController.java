@@ -46,16 +46,16 @@ public class AddMobileController extends HttpServlet {
         String mobileName = GetParam.getStringParam(request, "mobileName", "Mobile Name", 1, 20, null);
         Integer yearOfProduction = GetParam.getIntParams(request, "yearOfProduction", "Year Of Production", 2000, 2021, null);
         Integer quantity = GetParam.getIntParams(request, "quantity", "Quantity", 1, Integer.MAX_VALUE, null);
-        Integer notSale = GetParam.getIntParams(request, "notSale", "Not Sale", 0, 1, null);
+        Integer notSale =  GetParam.getIntParams(request, "notSale", "Not Sale", 0, 1, null);
 
         if (description == null || price == null || mobileName == null || yearOfProduction == null || quantity == null || notSale == null) {
             return false;
         }
 
-        Mobile mobile = new Mobile(Helper.generateId(), description, price, mobileName,
-                yearOfProduction, quantity, notSale == 1);
+        Mobile mobile = new Mobile(Helper.generateMobileId(), description, price, mobileName,
+                yearOfProduction, quantity, notSale == 0);
         if (!mobileDAO.addOneMobile(mobile)) {
-            request.setAttribute("errorMessage", "Mobile ID is not correct!");
+            request.setAttribute("errorMessage", "Some thing went wrong!");
             return false;
         }
         

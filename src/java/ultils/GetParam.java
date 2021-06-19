@@ -98,4 +98,14 @@ public class GetParam {
 
         return realValue;
     }
+    
+    public static String[] getStringArrayParams(HttpServletRequest request, String field, String label) {
+        String[] input = request.getParameterValues(field);
+        if (input == null) {
+            request.setAttribute(field + "Error", label + "is required");
+            return null;
+        }
+        
+        return input;
+    }
 }

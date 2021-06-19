@@ -55,7 +55,7 @@ public class UpdateMobileController extends HttpServlet {
         }
 
         Mobile mobile = new Mobile(mobileId, description, price, mobileName,
-                yearOfProduction, quantity, notSale == 1);
+                yearOfProduction, quantity, notSale == 0);
 
         if (!mobileDAO.updateOneMobile(mobile)) {
             request.setAttribute("errorMessage", "Mobile ID is not correct!");

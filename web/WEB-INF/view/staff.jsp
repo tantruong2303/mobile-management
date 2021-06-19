@@ -62,23 +62,24 @@
         <h1>Staff Menu</h1>
 
 
-        <form action="<%=Urls.SEARCH_CONTROLLER %>" method="GET">
+        <form action="<%=Urls.SEARCH_CONTROLLER%>" method="GET">
 
             <div>
                 <input type="text" name="search" placeholder="Enter Name or ID" />
             </div>
 
             <button type="submit">Search</button> 
-            <button><a style="text-decoration: none; color: black" href="<%= Urls.ADD_MOBILE_CONTROLLER %>">ADD NEW MOBILE DEVICE</a></button>
-            <button><a style="text-decoration: none; color: black" href="<%= Urls.LOGOUT_CONTROLLER %>">LOG OUT</a></button>
-            <p style="color: red"><%= errorMessage + searchError + mobileIdError%></p>
         </form>
+        <button><a style="text-decoration: none; color: black" href="<%= Urls.ADD_MOBILE_CONTROLLER%>">ADD NEW MOBILE DEVICE</a></button>
+        <button><a style="text-decoration: none; color: black" href="<%= Urls.LOGOUT_CONTROLLER%>">LOG OUT</a></button>
+        <p style="color: red"><%= errorMessage + searchError + mobileIdError%></p>
+
         <table style="text-align: center" >
             <% ArrayList<Mobile> mobileList = (ArrayList<Mobile>) request.getAttribute("mobileList");
                 if (mobileList == null) {
                     mobileList = new ArrayList<>();
                 }
-                if (mobileList.size() != 0) {
+                if (!mobileList.isEmpty()) {
             %>
             <tr>
                 <td>Mobile ID</td>
@@ -95,7 +96,7 @@
 
 
             <tr>
-            <form action="<%= Urls.UPDATE_MOBILE_CONTROLLER %>" method="POST">
+            <form action="<%= Urls.UPDATE_MOBILE_CONTROLLER%>" method="POST">
                 <tr>
                     <td><input type="text" name="mobileId" value="<%= mobile.getMobileId()%>" readonly="true"/></td>
                     <td><input type="text" name="mobileName" value="<%= mobile.getMobileName()%>"/></td>
@@ -118,7 +119,7 @@
                         <% }
                         %>
                     </td> <td><button type="submit">Edit</button> </td>
-                    <td><button><a onclick="return confirmation()" href="<%=Urls.DELETE_MOBILE_CONTROLLER %>?mobileId=<%= mobile.getMobileId()%>" >Delete</a></button></td>
+                    <td><button><a onclick="return confirmation()" href="<%=Urls.DELETE_MOBILE_CONTROLLER%>?mobileId=<%= mobile.getMobileId()%>" >Delete</a></button></td>
             </form>
         </tr>
         <tr>

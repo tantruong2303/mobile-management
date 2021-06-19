@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Staff Page</title>
+        <title>User Page</title>
     </head>
     <body>
         <%
@@ -33,7 +33,7 @@
         <h1>User Menu</h1>
 
 
-        <form action="<%= Urls.USER_CONTROLLER %>" method="GET">
+        <form action="<%= Urls.USER_CONTROLLER%>" method="GET">
             <div>
                 <div style="display: inline-block">
                     <label for="minPrice">Min Price</label>
@@ -45,23 +45,24 @@
                 </div>
             </div>
             <button type="submit">Search</button> 
-            <button><a style="text-decoration: none; color: black" href="addMobile.jsp">ADD NEW MOBILE DEVICE</a></button>
-            <button><a style="text-decoration: none; color: black" href="<%= Urls.LOGOUT_CONTROLLER %>">LOG OUT</a></button>
-            <p style="color: red"><%= errorMessage + minPriceError + maxPriceError%></p>
         </form>
-        <table  >
+        <button><a style="text-decoration: none; color: black" href="<%= Urls.SHOPPING_CART_CONTROLLER%>">SHOPPING CART</a></button>
+        <button><a style="text-decoration: none; color: black" href="<%= Urls.LOGOUT_CONTROLLER%>">LOG OUT</a></button>
+        <p style="color: red"><%= errorMessage + minPriceError + maxPriceError%></p>
+
+        <table style="text-align: center" >
             <% ArrayList<Mobile> mobileList = (ArrayList<Mobile>) request.getAttribute("mobileList");
                 if (mobileList == null) {
                     mobileList = new ArrayList<>();
                 }
-                if (mobileList.size() != 0) {
+                if (!mobileList.isEmpty()) {
             %>
             <tr>
                 <td>Mobile ID</td>
-                <td>Mobile Name</td>
-                <td>Price</td>
+                <td>Mobile Name</td> 
                 <td>Description</td>
                 <td>Year Of Production</td>
+                <td>Price</td>
                 <td>Quantity</td>
                 <td>Not Sale</td>
             </tr>
@@ -75,12 +76,12 @@
             <tr>
                 <td><%= mobile.getMobileId()%></td>
                 <td><%= mobile.getMobileName()%></td>
-                <td><%= mobile.getPrice()%></td>
                 <td><%= mobile.getDescription()%></td>
                 <td><%= mobile.getYearOfProduction()%></td>
+                <td><%= mobile.getPrice()%></td>
                 <td><%= mobile.getQuantity()%></td>
                 <td><%= mobile.isNotSale()%></td>
-                <td><a href="<%= Urls.ADD_TO_CART_CONTROLLER %>?mobileId=<%= mobile.getMobileId()%>">Add To Cart</a></td>
+                <td><a href="<%= Urls.ADD_TO_CART_CONTROLLER%>?mobileId=<%= mobile.getMobileId()%>">Add To Cart</a></td>
             </tr>
             <%      }
             } else {

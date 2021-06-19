@@ -16,6 +16,7 @@ public class Urls {
     public final static String USER_PAGE = "/WEB-INF/view/user.jsp";
     public final static String STAFF_PAGE = "/WEB-INF/view/staff.jsp";
     public final static String ADD_MOBILE_PAGE = "/WEB-INF/view/addMobile.jsp";
+    public final static String SHOPPING_CART_PAGE = "/WEB-INF/view/shoppingCart.jsp";
 
     public final static String LOGIN_CONTROLLER = "LoginController";
     public final static String LOGOUT_CONTROLLER = "LogoutController";
@@ -26,5 +27,8 @@ public class Urls {
     public final static String UPDATE_MOBILE_CONTROLLER = "UpdateMobileController";
     public final static String DELETE_MOBILE_CONTROLLER = "DeleteMobileController";
     public final static String ADD_TO_CART_CONTROLLER = "AddToCartController";
+    public final static String SHOPPING_CART_CONTROLLER = "ShoppingCartController";
+    public final static String REMOVE_SHOPPING_CART_CONTROLLER = "RemoveShoppingCartController";
+    public final static String ORDER_CONTROLLER = "OrderController";
     
 }
