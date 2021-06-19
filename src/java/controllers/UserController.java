@@ -22,8 +22,8 @@ import ultils.Urls;
  *
  * @author Lenovo
  */
-@WebServlet(name = "DeleteMobileController", urlPatterns = {"/DeleteMobileController"})
-public class DeleteMobileController extends HttpServlet {
+@WebServlet(name = "UserController", urlPatterns = {"/UserController"})
+public class UserController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,19 +38,28 @@ public class DeleteMobileController extends HttpServlet {
             throws Exception {
         MobileDAO mobileDAO = new MobileDAO();
 
-        // validate params
-        String mobileId = GetParam.getStringParam(request, "mobileId", "Mobile ID", 1, 10, null);
-        if (mobileId == null) {
+        Float min = GetParam.getFloatParams(request, "minPrice", "Min price", 0f, Float.MAX_VALUE, 0f);
+        Float max = GetParam.getFloatParams(request, "maxPrice", "Max price", 0, Float.MAX_VALUE, Float.MAX_VALUE);
+
+        if (min == null || max == null) {
             return false;
         }
-        
-        mobileDAO.deleteOneMobileById(mobileId);
 
+        if (min >= max) {
+            request.setAttribute("errorMessage", "Min Price must be greater than max price");
+            return false;
+        }
+
+        ArrayList<Mobile> mobileList = mobileDAO.getMobiles(min, max);
+
+        request.setAttribute("mobileList", mobileList);
         return true;
+
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -61,15 +70,10 @@ public class DeleteMobileController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            if (processRequest(request, response)) {
-                response.sendRedirect(Urls.STAFF_CONTROLLER);
-            } else {
-                MobileDAO mobileDAO = new MobileDAO();
-                ArrayList<Mobile> mobileList = mobileDAO.getMobiles(0, Float.MAX_VALUE);
-                request.setAttribute("mobileList", mobileList);
-                request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
-            }
+            processRequest(request, response);
+            request.getRequestDispatcher(Urls.USER_PAGE).forward(request, response);
         } catch (Exception e) {
+            e.printStackTrace();
             request.getRequestDispatcher(Urls.ERROR_PAGE).forward(request, response);
         }
     }

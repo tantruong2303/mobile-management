@@ -74,7 +74,7 @@ public class UpdateMobileController extends HttpServlet {
             throws ServletException, IOException {
         try {
             if (processRequest(request, response)) {
-                response.sendRedirect(Urls.STAFF);
+                response.sendRedirect(Urls.STAFF_CONTROLLER);
             } else {
                 MobileDAO mobileDAO = new MobileDAO();
                 ArrayList<Mobile> mobileList = mobileDAO.getMobiles(0, Float.MAX_VALUE);

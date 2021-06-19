@@ -17,12 +17,13 @@ public class Urls {
     public final static String STAFF_PAGE = "/WEB-INF/view/staff.jsp";
     public final static String ADD_MOBILE_PAGE = "/WEB-INF/view/addMobile.jsp";
 
-    public final static String LOGIN = "LoginController";
-    public final static String STAFF = "StaffController";
-    public final static String ADD_MOBILE = "AddMobileController";
-    public final static String USER = "UserController";
-    public final static String SEARCH = "SearchController";
-    public final static String UPDATE_MOBILE = "UpdateMobileController";
-    public final static String DELETE_MOBILE = "DeleteMobileController";
+    public final static String LOGIN_CONTROLLER = "LoginController";
+    public final static String LOGOUT_CONTROLLER = "LogoutController";
+    public final static String STAFF_CONTROLLER = "StaffController";
+    public final static String ADD_MOBILE_CONTROLLER = "AddMobileController";
+    public final static String USER_CONTROLLER = "UserController";
+    public final static String SEARCH_CONTROLLER = "SearchController";
+    public final static String UPDATE_MOBILE_CONTROLLER = "UpdateMobileController";
+    public final static String DELETE_MOBILE_CONTROLLER = "DeleteMobileController";
     
 }

@@ -27,7 +27,7 @@ import ultils.Urls;
  *
  * @author Lenovo
  */
-@WebFilter(filterName = "LoginControllerFilter", urlPatterns = {"/" + Urls.LOGIN,})
+@WebFilter(filterName = "LoginControllerFilter", urlPatterns = {"/" + Urls.LOGIN_CONTROLLER,})
 public class LoginControllerFilter implements Filter {
 
     @Override

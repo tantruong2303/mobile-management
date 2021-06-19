@@ -97,10 +97,10 @@ public class LoginController extends HttpServlet {
                 int role = (int) session.getAttribute("role");
 
                 if (role == userRole) {
-                    request.getRequestDispatcher(Urls.USER_PAGE).forward(request, response);
+                    response.sendRedirect(Urls.USER_CONTROLLER);
                 }
                 if (role == staffRole) {
-                    response.sendRedirect(Urls.STAFF);
+                    response.sendRedirect(Urls.STAFF_CONTROLLER);
                 }
                 return;
             }

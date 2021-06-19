@@ -86,7 +86,7 @@ public class AddMobileController extends HttpServlet {
             throws ServletException, IOException {
         try {
             if (processRequest(request, response)) {
-                response.sendRedirect(Urls.STAFF);
+                response.sendRedirect(Urls.STAFF_CONTROLLER);
             } else {
                 request.getRequestDispatcher(Urls.ADD_MOBILE_PAGE).forward(request, response);
             }

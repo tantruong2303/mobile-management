@@ -76,7 +76,7 @@ public class SearchController extends HttpServlet {
             throws ServletException, IOException {
         try {
             if (processRequest(request, response)) {
-                response.sendRedirect(Urls.STAFF);
+                response.sendRedirect(Urls.STAFF_CONTROLLER);
             }
             else {
                 request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);

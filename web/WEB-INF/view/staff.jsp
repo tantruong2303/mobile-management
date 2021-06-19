@@ -62,15 +62,15 @@
         <h1>Staff Menu</h1>
 
 
-        <form action="<%=Urls.SEARCH%>" method="GET">
+        <form action="<%=Urls.SEARCH_CONTROLLER %>" method="GET">
 
             <div>
                 <input type="text" name="search" placeholder="Enter Name or ID" />
             </div>
 
             <button type="submit">Search</button> 
-            <button><a style="text-decoration: none; color: black" href="<%= Urls.ADD_MOBILE%>">ADD NEW MOBILE DEVICE</a></button>
-            <button><a style="text-decoration: none; color: black" href="servletController?action=logout">LOG OUT</a></button>
+            <button><a style="text-decoration: none; color: black" href="<%= Urls.ADD_MOBILE_CONTROLLER %>">ADD NEW MOBILE DEVICE</a></button>
+            <button><a style="text-decoration: none; color: black" href="<%= Urls.LOGOUT_CONTROLLER %>">LOG OUT</a></button>
             <p style="color: red"><%= errorMessage + searchError + mobileIdError%></p>
         </form>
         <table style="text-align: center" >
@@ -95,7 +95,7 @@
 
 
             <tr>
-            <form action="<%= Urls.UPDATE_MOBILE%>" method="POST">
+            <form action="<%= Urls.UPDATE_MOBILE_CONTROLLER %>" method="POST">
                 <tr>
                     <td><input type="text" name="mobileId" value="<%= mobile.getMobileId()%>" readonly="true"/></td>
                     <td><input type="text" name="mobileName" value="<%= mobile.getMobileName()%>"/></td>
@@ -118,7 +118,7 @@
                         <% }
                         %>
                     </td> <td><button type="submit">Edit</button> </td>
-                    <td><button><a onclick="return confirmation()" href="<%=Urls.DELETE_MOBILE%>?mobileId=<%= mobile.getMobileId()%>" >Delete</a></button></td>
+                    <td><button><a onclick="return confirmation()" href="<%=Urls.DELETE_MOBILE_CONTROLLER %>?mobileId=<%= mobile.getMobileId()%>" >Delete</a></button></td>
             </form>
         </tr>
         <tr>

@@ -34,7 +34,7 @@
         %>
 
         <h1>Login From</h1>
-        <form action="<%=Urls.LOGIN %>" method = "POST">
+        <form action="<%=Urls.LOGIN_CONTROLLER %>" method = "POST">
             <table>
                 <tr>
                     <td>  </td>

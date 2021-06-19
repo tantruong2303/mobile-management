@@ -52,7 +52,7 @@
         <h1>Add Mobile Form</h1>
         <button><a style="text-decoration: none; color: black" href="servletController?action=getStaffPage">STAFF MENU</a></button>
         <button><a style="text-decoration: none; color: black" href="servletController?action=logout">LOG OUT</a></button>
-        <form action="<%= Urls.ADD_MOBILE %>" method="POST" id="addMobileForm">
+        <form action="<%= Urls.ADD_MOBILE_CONTROLLER %>" method="POST" id="addMobileForm">
             <table>
                 <tr>
                     <td></td>
