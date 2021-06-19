@@ -110,5 +110,20 @@ public class MobileDAO {
         }
         return mobileList;
     }
-
+    
+    public boolean deleteOneMobileById(String mobileId) throws Exception {
+         boolean isSuccess = false;
+        try {
+            connection = Connector.getConnection();
+            String query = "DELETE FROM tbl_Mobile WHERE mobileId = ?";
+            preStm = connection.prepareStatement(query);
+            preStm.setString(1, mobileId);
+            preStm.executeUpdate();
+            
+            isSuccess = true;
+        } finally {
+            this.closeConnection();
+        }
+        return isSuccess;
+    }
 }

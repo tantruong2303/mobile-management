@@ -100,7 +100,7 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher(Urls.USER_PAGE).forward(request, response);
                 }
                 if (role == staffRole) {
-                    request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
+                    response.sendRedirect(Urls.STAFF);
                 }
                 return;
             }

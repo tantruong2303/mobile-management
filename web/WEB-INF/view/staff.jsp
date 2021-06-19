@@ -71,10 +71,15 @@
             <button type="submit">Search</button> 
             <button><a style="text-decoration: none; color: black" href="<%= Urls.ADD_MOBILE%>">ADD NEW MOBILE DEVICE</a></button>
             <button><a style="text-decoration: none; color: black" href="servletController?action=logout">LOG OUT</a></button>
-            <p style="color: red"><%= errorMessage + searchError%></p>
+            <p style="color: red"><%= errorMessage + searchError + mobileIdError%></p>
         </form>
         <table style="text-align: center" >
-
+            <% ArrayList<Mobile> mobileList = (ArrayList<Mobile>) request.getAttribute("mobileList");
+                if (mobileList == null) {
+                    mobileList = new ArrayList<>();
+                }
+                if (mobileList.size() != 0) {
+            %>
             <tr>
                 <td>Mobile ID</td>
                 <td>Mobile Name</td>
@@ -84,12 +89,8 @@
                 <td>Quantity</td>
                 <td>Not Sale</td>
             </tr>
-            <% ArrayList<Mobile> mobileList = (ArrayList<Mobile>) request.getAttribute("mobileList");
-                if (mobileList == null) {
-                    mobileList = new ArrayList<>();
-                }
-                if (mobileList.size() != 0) {
-                    for (Mobile mobile : mobileList) {
+            <%
+                for (Mobile mobile : mobileList) {
             %>
 
 
@@ -117,7 +118,7 @@
                         <% }
                         %>
                     </td> <td><button type="submit">Edit</button> </td>
-                    <td><a onclick="return confirmation()" href="servletController?action=deleteMobile&mobileId=<%= mobile.getMobileId()%>" >Delete</a></td>
+                    <td><button><a onclick="return confirmation()" href="<%=Urls.DELETE_MOBILE%>?mobileId=<%= mobile.getMobileId()%>" >Delete</a></button></td>
             </form>
         </tr>
         <tr>

@@ -23,5 +23,6 @@ public class Urls {
     public final static String USER = "UserController";
     public final static String SEARCH = "SearchController";
     public final static String UPDATE_MOBILE = "UpdateMobileController";
+    public final static String DELETE_MOBILE = "DeleteMobileController";
     
 }
