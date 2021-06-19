@@ -80,8 +80,7 @@
                 <td><%= mobile.getYearOfProduction()%></td>
                 <td><%= mobile.getQuantity()%></td>
                 <td><%= mobile.isNotSale()%></td>
-                <td><a href="servletController?action=updateMobile&mobileId=<%= mobile.getMobileId()%>">Edit</a></td>
-                <td><a onclick="return confirmation()" href="servletController?action=deleteMobile&mobileId=<%= mobile.getMobileId()%>" >Delete</a></td>
+                <td><a href="<%= Urls.ADD_TO_CART_CONTROLLER %>?mobileId=<%= mobile.getMobileId()%>">Add To Cart</a></td>
             </tr>
             <%      }
             } else {

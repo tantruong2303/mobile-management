@@ -56,7 +56,13 @@ public class UpdateMobileController extends HttpServlet {
 
         Mobile mobile = new Mobile(mobileId, description, price, mobileName,
                 yearOfProduction, quantity, notSale == 1);
-        mobileDAO.updateOneMobile(mobile);
+
+        if (!mobileDAO.updateOneMobile(mobile)) {
+            request.setAttribute("errorMessage", "Mobile ID is not correct!");
+            return false;
+        }
+
+        request.setAttribute("errorMessage", "Update mobile success!");
 
         return true;
     }
@@ -73,14 +79,11 @@ public class UpdateMobileController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            if (processRequest(request, response)) {
-                response.sendRedirect(Urls.STAFF_CONTROLLER);
-            } else {
-                MobileDAO mobileDAO = new MobileDAO();
-                ArrayList<Mobile> mobileList = mobileDAO.getMobiles(0, Float.MAX_VALUE);
-                request.setAttribute("mobileList", mobileList);
-                request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
-            }
+            processRequest(request, response);
+            MobileDAO mobileDAO = new MobileDAO();
+            ArrayList<Mobile> mobileList = mobileDAO.getMobiles(0, Float.MAX_VALUE);
+            request.setAttribute("mobileList", mobileList);
+            request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
         } catch (Exception e) {
             request.getRequestDispatcher(Urls.ERROR_PAGE).forward(request, response);
         }

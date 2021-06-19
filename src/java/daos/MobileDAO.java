@@ -50,8 +50,7 @@ public class MobileDAO {
             preStm.setInt(6, mobile.getQuantity());
             preStm.setBoolean(7, mobile.isNotSale());
 
-            preStm.executeUpdate();
-            isSuccess = true;
+            isSuccess = preStm.executeUpdate() > 0;
         } finally {
             this.closeConnection();
         }
@@ -73,8 +72,7 @@ public class MobileDAO {
             preStm.setBoolean(6, mobile.isNotSale());
             preStm.setString(7, mobile.getMobileId());
 
-            preStm.executeUpdate();
-            isSuccess = true;
+            isSuccess = preStm.executeUpdate() > 0;
         } finally {
             this.closeConnection();
         }
@@ -110,20 +108,47 @@ public class MobileDAO {
         }
         return mobileList;
     }
-    
+
     public boolean deleteOneMobileById(String mobileId) throws Exception {
-         boolean isSuccess = false;
+        boolean isSuccess = false;
         try {
             connection = Connector.getConnection();
             String query = "DELETE FROM tbl_Mobile WHERE mobileId = ?";
             preStm = connection.prepareStatement(query);
             preStm.setString(1, mobileId);
-            preStm.executeUpdate();
-            
-            isSuccess = true;
+            isSuccess = preStm.executeUpdate() > 0;
         } finally {
             this.closeConnection();
         }
         return isSuccess;
+    }
+
+    public Mobile getOneMobile(String field, String value) throws Exception {
+        Mobile mobile = null;
+        try {
+            connection = Connector.getConnection();
+            String query = "SELECT * FROM tbl_Mobile WHERE " + field + " = ?";
+            preStm = connection.prepareStatement(query);
+
+            preStm.setString(1, value);
+
+            resultSet = preStm.executeQuery();
+            while (resultSet.next()) {
+                if (resultSet.getString(field).equals(value)) {
+                    String mobileId = resultSet.getString("mobileId");
+                    String description = resultSet.getString("description");
+                    float price = resultSet.getFloat("price");
+                    String mobileName = resultSet.getString("mobileName");
+                    int yearOfProduction = resultSet.getInt("yearOfProduction");
+                    int quantity = resultSet.getInt("quantity");
+                    boolean notSale = resultSet.getBoolean("notSale");
+
+                    mobile = new Mobile(mobileId, description, price, mobileName, yearOfProduction, quantity, notSale);
+                }
+            }
+        } finally {
+            this.closeConnection();
+        }
+        return mobile;
     }
 }

@@ -9,6 +9,7 @@ import daos.MobileDAO;
 import dtos.Mobile;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -53,7 +54,13 @@ public class AddMobileController extends HttpServlet {
 
         Mobile mobile = new Mobile(Helper.generateId(), description, price, mobileName,
                 yearOfProduction, quantity, notSale == 1);
-        mobileDAO.addOneMobile(mobile);
+        if (!mobileDAO.addOneMobile(mobile)) {
+            request.setAttribute("errorMessage", "Mobile ID is not correct!");
+            return false;
+        }
+        
+        request.setAttribute("errorMessage", "Add mobile success!");
+
         return true;
 
     }
@@ -86,7 +93,10 @@ public class AddMobileController extends HttpServlet {
             throws ServletException, IOException {
         try {
             if (processRequest(request, response)) {
-                response.sendRedirect(Urls.STAFF_CONTROLLER);
+                MobileDAO mobileDAO = new MobileDAO();
+                ArrayList<Mobile> mobileList = mobileDAO.getMobiles(0, Float.MAX_VALUE);
+                request.setAttribute("mobileList", mobileList);
+                request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
             } else {
                 request.getRequestDispatcher(Urls.ADD_MOBILE_PAGE).forward(request, response);
             }

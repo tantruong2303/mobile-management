@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import ultils.GetParam;
 import ultils.Urls;
 
@@ -22,8 +23,8 @@ import ultils.Urls;
  *
  * @author Lenovo
  */
-@WebServlet(name = "DeleteMobileController", urlPatterns = {"/DeleteMobileController"})
-public class DeleteMobileController extends HttpServlet {
+@WebServlet(name = "AddToCartController", urlPatterns = {"/AddToCartController"})
+public class AddToCartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,18 +45,32 @@ public class DeleteMobileController extends HttpServlet {
             return false;
         }
 
-        if (!mobileDAO.deleteOneMobileById(mobileId)) {
+        Mobile mobile = mobileDAO.getOneMobile("mobileId", mobileId);
+
+        if (mobile == null) {
             request.setAttribute("errorMessage", "Mobile ID is not correct!");
             return false;
         }
-        
-        request.setAttribute("errorMessage", "Delete mobile success!");
+
+        HttpSession session = request.getSession(false);
+        ArrayList<String> cartList = (ArrayList<String>) session.getAttribute("cartList");
+        ArrayList<String> updateCartList;
+        if (cartList == null) {
+            updateCartList = new ArrayList<>();
+        } else {
+            updateCartList = cartList;
+        }
+
+        updateCartList.add(mobile.getMobileId());
+        session.setAttribute("cartList", updateCartList);
+        request.setAttribute("errorMessage", "Add to card success!");
 
         return true;
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -70,8 +85,7 @@ public class DeleteMobileController extends HttpServlet {
             MobileDAO mobileDAO = new MobileDAO();
             ArrayList<Mobile> mobileList = mobileDAO.getMobiles(0, Float.MAX_VALUE);
             request.setAttribute("mobileList", mobileList);
-            request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
-
+            request.getRequestDispatcher(Urls.USER_PAGE).forward(request, response);
         } catch (Exception e) {
             request.getRequestDispatcher(Urls.ERROR_PAGE).forward(request, response);
         }
