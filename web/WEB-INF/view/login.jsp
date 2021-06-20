@@ -4,6 +4,7 @@
     Author     : Lenovo
 --%>
 
+<%@page import="ultils.GetParam"%>
 <%@page import="ultils.Urls"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,24 +14,10 @@
         <title>Login</title>
     </head>
     <body >
-        <%
-            String userIdError = (String) request.getAttribute("userIdError");
-            String passwordError = (String) request.getAttribute("passwordError");
-            String loginError = (String) request.getAttribute("loginError");
-            String errorMessage = (String) request.getAttribute("errorMessage");
-
-            if (userIdError == null) {
-                userIdError = "";
-            }
-            if (passwordError == null) {
-                passwordError = "";
-            }
-            if (loginError == null) {
-                loginError = "";
-            }
-            if (errorMessage == null) {
-                errorMessage = "";
-            }
+        <%       
+            String errorMessage = (String) GetParam.getClientAttribute(request, "errorMessage", "");
+            String userIdError = (String) GetParam.getClientAttribute(request, "userIdError", "");
+            String passwordError = (String) GetParam.getClientAttribute(request, "passwordError", "");
         %>
 
         <h1>Login From</h1>
@@ -38,7 +25,7 @@
             <table>
                 <tr>
                     <td>  </td>
-                    <td style="color: red"><%= loginError + errorMessage%></td>
+                    <td style="color: red"><%= errorMessage%></td>
                 </tr>
                 <tr>
                     <td>User ID: </td>

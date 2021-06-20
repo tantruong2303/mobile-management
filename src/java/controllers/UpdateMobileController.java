@@ -55,7 +55,7 @@ public class UpdateMobileController extends HttpServlet {
         }
 
         Mobile mobile = new Mobile(mobileId, description, price, mobileName,
-                yearOfProduction, quantity, notSale == 0);
+                yearOfProduction, quantity, notSale == 1);
 
         if (!mobileDAO.updateOneMobile(mobile)) {
             request.setAttribute("errorMessage", "Mobile ID is not correct!");
@@ -81,7 +81,7 @@ public class UpdateMobileController extends HttpServlet {
         try {
             processRequest(request, response);
             MobileDAO mobileDAO = new MobileDAO();
-            ArrayList<Mobile> mobileList = mobileDAO.getMobiles(0, Float.MAX_VALUE);
+            ArrayList<Mobile> mobileList = mobileDAO.getAllMobiles();
             request.setAttribute("mobileList", mobileList);
             request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
         } catch (Exception e) {

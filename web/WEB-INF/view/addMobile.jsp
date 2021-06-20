@@ -4,6 +4,7 @@
     Author     : Lenovo
 --%>
 
+<%@page import="ultils.GetParam"%>
 <%@page import="ultils.Urls"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,39 +15,15 @@
     </head>
     <body>
         <%
-            String mobileIdError = (String) request.getAttribute("mobileIdError");
-            String descriptionError = (String) request.getAttribute("descriptionError");
-            String priceError = (String) request.getAttribute("priceError");
-            String mobileNameError = (String) request.getAttribute("mobileNameError");
-            String yearOfProductionError = (String) request.getAttribute("yearOfProductionError");
-            String quantityError = (String) request.getAttribute("quantityError");
-            String notSaleError = (String) request.getAttribute("notSaleError");
-            String addMobileError = (String) request.getAttribute("addMobileError");
-
-            if (mobileIdError == null) {
-                mobileIdError = "";
-            }
-            if (descriptionError == null) {
-                descriptionError = "";
-            }
-            if (priceError == null) {
-                priceError = "";
-            }
-            if (mobileNameError == null) {
-                mobileNameError = "";
-            }
-            if (yearOfProductionError == null) {
-                yearOfProductionError = "";
-            }
-            if (quantityError == null) {
-                quantityError = "";
-            }
-            if (notSaleError == null) {
-                notSaleError = "";
-            }
-            if (addMobileError == null) {
-                addMobileError = "";
-            }
+            String mobileIdError = (String) GetParam.getClientAttribute(request, "mobileIdError", "");
+            String descriptionError = (String) GetParam.getClientAttribute(request, "descriptionError", "");
+            String priceError = (String) GetParam.getClientAttribute(request, "priceError", "");
+            String mobileNameError = (String) GetParam.getClientAttribute(request, "mobileNameError", "");
+            String yearOfProductionError = (String) GetParam.getClientAttribute(request, "yearOfProductionError", "");
+            String quantityError = (String) GetParam.getClientAttribute(request, "quantityError", "");
+            String notSaleError = (String) GetParam.getClientAttribute(request, "notSaleError", "");
+            String errorMessage = (String) GetParam.getClientAttribute(request, "errorMessage", "");
+            
         %>
 
         <h1>Add Mobile Form</h1>
@@ -56,7 +33,7 @@
             <table>
                 <tr>
                     <td></td>
-                    <td style="color: red"><%= addMobileError%></td>
+                    <td style="color: red"><%= errorMessage%></td>
                 </tr>
                 <tr>
                     <td>Description:</td>
@@ -102,9 +79,9 @@
                     <td>Not Sale:</td>
                     <td>
                         <input type="radio" id="notSale" name="notSale" value="0" />
-                        <label for="notSale">Not sale</label>
+                        <label for="notSale">No</label>
                         <input type="radio" id="sale" name="notSale" value="1" />
-                        <label for="sale">Sale</label>
+                        <label for="sale">Yes</label>
                     </td>
                 </tr>
                 <tr>

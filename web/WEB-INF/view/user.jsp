@@ -4,6 +4,7 @@
     Author     : Lenovo
 --%>
 
+<%@page import="ultils.GetParam"%>
 <%@page import="ultils.Urls"%>
 <%@page import="dtos.Mobile"%>
 <%@page import="java.util.ArrayList"%>
@@ -16,18 +17,9 @@
     </head>
     <body>
         <%
-            String minPriceError = (String) request.getAttribute("minPriceError");
-            String maxPriceError = (String) request.getAttribute("maxPriceError");
-            String errorMessage = (String) request.getAttribute("errorMessage");
-            if (minPriceError == null) {
-                minPriceError = "";
-            }
-            if (maxPriceError == null) {
-                maxPriceError = "";
-            }
-            if (errorMessage == null) {
-                errorMessage = "";
-            }
+            String errorMessage = (String) GetParam.getClientAttribute(request, "errorMessage", "");
+            String minPriceError = (String) GetParam.getClientAttribute(request, "minPriceError", "");
+            String maxPriceError = (String) GetParam.getClientAttribute(request, "maxPriceError", "");
         %>
 
         <h1>User Menu</h1>
@@ -50,11 +42,8 @@
         <button><a style="text-decoration: none; color: black" href="<%= Urls.LOGOUT_CONTROLLER%>">LOG OUT</a></button>
         <p style="color: red"><%= errorMessage + minPriceError + maxPriceError%></p>
 
-        <table style="text-align: center" >
-            <% ArrayList<Mobile> mobileList = (ArrayList<Mobile>) request.getAttribute("mobileList");
-                if (mobileList == null) {
-                    mobileList = new ArrayList<>();
-                }
+        <table border="1" style="text-align: center" >
+            <% ArrayList<Mobile> mobileList = (ArrayList<Mobile>) GetParam.getClientAttribute(request, "mobileList", new ArrayList<>());
                 if (!mobileList.isEmpty()) {
             %>
             <tr>
@@ -80,7 +69,7 @@
                 <td><%= mobile.getYearOfProduction()%></td>
                 <td><%= mobile.getPrice()%></td>
                 <td><%= mobile.getQuantity()%></td>
-                <td><%= mobile.isNotSale()%></td>
+
                 <td><a href="<%= Urls.ADD_TO_CART_CONTROLLER%>?mobileId=<%= mobile.getMobileId()%>">Add To Cart</a></td>
             </tr>
             <%      }

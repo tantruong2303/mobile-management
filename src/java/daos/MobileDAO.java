@@ -79,11 +79,39 @@ public class MobileDAO {
         return isSuccess;
     }
 
+    public ArrayList<Mobile> getAllMobiles() throws Exception {
+        ArrayList<Mobile> mobileList = new ArrayList<>();
+        try {
+            connection = Connector.getConnection();
+            String query = "SELECT mobileId, description, price, mobileName, yearOfProduction, quantity, notSale FROM tbl_Mobile ORDER BY mobileId ASC";
+            preStm = connection.prepareStatement(query);
+            resultSet = preStm.executeQuery();
+
+            while (resultSet.next()) {
+
+                String mobileId = resultSet.getString("mobileId");
+                String description = resultSet.getString("description");
+                float price = resultSet.getFloat("price");
+                String mobileName = resultSet.getString("mobileName");
+                int yearOfProduction = resultSet.getInt("yearOfProduction");
+                int quantity = resultSet.getInt("quantity");
+                boolean notSale = resultSet.getBoolean("notSale");
+
+                Mobile mobile = new Mobile(mobileId, description, price, mobileName, yearOfProduction, quantity, notSale);
+
+                mobileList.add(mobile);
+            }
+        } finally {
+            this.closeConnection();
+        }
+        return mobileList;
+    }
+
     public ArrayList<Mobile> getMobiles(float min, float max) throws Exception {
         ArrayList<Mobile> mobileList = new ArrayList<>();
         try {
             connection = Connector.getConnection();
-            String query = "SELECT mobileId, description, price, mobileName, yearOfProduction, quantity, notSale FROM tbl_Mobile WHERE price >= ? AND price <= ? ORDER BY price ASC";
+            String query = "SELECT mobileId, description, price, mobileName, yearOfProduction, quantity, notSale FROM tbl_Mobile WHERE price >= ? AND price <= ? AND notSale = 0 ORDER BY mobileId ASC";
             preStm = connection.prepareStatement(query);
             preStm.setFloat(1, min);
             preStm.setFloat(2, max);

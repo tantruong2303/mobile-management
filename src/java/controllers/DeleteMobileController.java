@@ -68,7 +68,7 @@ public class DeleteMobileController extends HttpServlet {
         try {
             processRequest(request, response);
             MobileDAO mobileDAO = new MobileDAO();
-            ArrayList<Mobile> mobileList = mobileDAO.getMobiles(0, Float.MAX_VALUE);
+            ArrayList<Mobile> mobileList = mobileDAO.getAllMobiles();
             request.setAttribute("mobileList", mobileList);
             request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
 

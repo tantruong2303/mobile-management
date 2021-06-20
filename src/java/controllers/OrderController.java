@@ -74,27 +74,37 @@ public class OrderController extends HttpServlet {
 
         for (String mobileId : cartListId.keySet()) {
             Mobile mobile = mobileDAO.getOneMobile("mobileId", mobileId);
-            if (mobile != null) {
-                OrderDetail orderDetail = new OrderDetail(orderId, mobileId, mobile.getPrice(), cartListId.get(mobileId));
-
-                if (orderDetail.getQuantity() > mobile.getQuantity()) {
-                    request.setAttribute("errorMessage", "Invalid quantity!");
-                    return false;
-                }
-
-                if (!orderDetailDAO.addOneOrderDetail(orderDetail)) {
-                    request.setAttribute("errorMessage", "Some thing went wrong!");
-                    return false;
-                }
-
-                mobile.setQuantity(mobile.getQuantity() - orderDetail.getQuantity());
-
-                if (!mobileDAO.updateOneMobile(mobile)) {
-                    request.setAttribute("errorMessage", "Mobile ID is not correct!");
-                    return false;
-                }
-                total += orderDetail.getQuantity() * orderDetail.getUnitPrice();
+            if (mobile == null) {
+                request.setAttribute("errorMessage", "Mobile ID is not correct!");
+                return false;
             }
+
+            if (mobile.isNotSale()) {
+                request.setAttribute("errorMessage", "Mobile is not sale!");
+                return false;
+            }
+
+            OrderDetail orderDetail = new OrderDetail(orderId, mobileId, mobile.getPrice(), cartListId.get(mobileId));
+
+            if (orderDetail.getQuantity() > mobile.getQuantity()) {
+                request.setAttribute("errorMessage", "Invalid quantity!");
+                return false;
+            }
+
+            if (!orderDetailDAO.addOneOrderDetail(orderDetail)) {
+                request.setAttribute("errorMessage", "Some thing went wrong!");
+                return false;
+            }
+
+            mobile.setQuantity(mobile.getQuantity() - orderDetail.getQuantity());
+
+            if (!mobileDAO.updateOneMobile(mobile)) {
+                request.setAttribute("errorMessage", "Mobile ID is not correct!");
+                return false;
+            }
+            
+            total += orderDetail.getQuantity() * orderDetail.getUnitPrice();
+
         }
 
         order.setTotal(total);

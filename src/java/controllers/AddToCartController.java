@@ -52,6 +52,11 @@ public class AddToCartController extends HttpServlet {
             request.setAttribute("errorMessage", "Mobile ID is not correct!");
             return false;
         }
+        
+        if (mobile.isNotSale()) {
+            request.setAttribute("errorMessage", "Mobile is not sale!");
+            return false;
+        }
 
         HttpSession session = request.getSession(false);
         HashMap<String, Integer> cartListId = (HashMap<String, Integer>) session.getAttribute("cartListId");

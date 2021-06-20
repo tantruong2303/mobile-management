@@ -38,7 +38,7 @@ public class StaffController extends HttpServlet {
     protected boolean processRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         MobileDAO mobileDAO = new MobileDAO();
         
-        ArrayList<Mobile> mobileList = mobileDAO.getMobiles(0, Float.MAX_VALUE);
+        ArrayList<Mobile> mobileList = mobileDAO.getAllMobiles();
         
         request.setAttribute("mobileList", mobileList);
         return true;

@@ -44,7 +44,7 @@ public class SearchController extends HttpServlet {
             return false;
         }
 
-        ArrayList<Mobile> allMobileList = mobileDAO.getMobiles(0, Float.MAX_VALUE);
+        ArrayList<Mobile> allMobileList = mobileDAO.getAllMobiles();
         ArrayList<Mobile> result = new ArrayList<>();
 
         for (int i = 0; i < allMobileList.size(); i++) {
@@ -79,7 +79,7 @@ public class SearchController extends HttpServlet {
                 request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
             } else {
                 MobileDAO mobileDAO = new MobileDAO();
-                ArrayList<Mobile> mobileList = mobileDAO.getMobiles(0, Float.MAX_VALUE);
+                ArrayList<Mobile> mobileList = mobileDAO.getAllMobiles();
                 request.setAttribute("mobileList", mobileList);
                 request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
             }

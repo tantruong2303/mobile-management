@@ -53,7 +53,7 @@ public class AddMobileController extends HttpServlet {
         }
 
         Mobile mobile = new Mobile(Helper.generateMobileId(), description, price, mobileName,
-                yearOfProduction, quantity, notSale == 0);
+                yearOfProduction, quantity, notSale == 1);
         if (!mobileDAO.addOneMobile(mobile)) {
             request.setAttribute("errorMessage", "Some thing went wrong!");
             return false;
