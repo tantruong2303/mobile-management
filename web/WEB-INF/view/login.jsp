@@ -20,6 +20,7 @@
             String passwordError = (String) GetParam.getClientAttribute(request, "passwordError", "");
         %>
 
+        <%@include file="navbar.jsp" %>
         <h1>Login From</h1>
         <form action="<%=Urls.LOGIN_CONTROLLER %>" method = "POST">
             <table>

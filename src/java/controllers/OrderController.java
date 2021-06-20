@@ -84,7 +84,7 @@ public class OrderController extends HttpServlet {
                 return false;
             }
 
-            OrderDetail orderDetail = new OrderDetail(orderId, mobileId, mobile.getPrice(), cartListId.get(mobileId));
+            OrderDetail orderDetail = new OrderDetail(orderId, mobile, mobile.getPrice(), cartListId.get(mobileId));
 
             if (orderDetail.getQuantity() > mobile.getQuantity()) {
                 request.setAttribute("errorMessage", "Invalid quantity!");
@@ -115,7 +115,7 @@ public class OrderController extends HttpServlet {
 
         session.removeAttribute("cartListId");
 
-        request.setAttribute("errorMessage", "Buy success!");
+        request.setAttribute("message", "Buy success!");
         return true;
     }
 

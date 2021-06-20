@@ -49,7 +49,7 @@ public class DeleteMobileController extends HttpServlet {
             return false;
         }
         
-        request.setAttribute("errorMessage", "Delete mobile success!");
+        request.setAttribute("message", "Delete mobile success!");
 
         return true;
     }
@@ -73,6 +73,7 @@ public class DeleteMobileController extends HttpServlet {
             request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
 
         } catch (Exception e) {
+            e.printStackTrace();
             request.getRequestDispatcher(Urls.ERROR_PAGE).forward(request, response);
         }
     }

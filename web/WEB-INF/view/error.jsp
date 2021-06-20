@@ -16,6 +16,8 @@
         <%
             String errorMessage = (String) GetParam.getClientAttribute(request, "errorMessage", "Page not found!");
         %>
+        
+        <%@include file="navbar.jsp" %>
         <div class="text-center">
             <h1><%= errorMessage%></h1>
             <a href="IndexController">

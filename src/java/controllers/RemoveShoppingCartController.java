@@ -5,6 +5,8 @@
  */
 package controllers;
 
+import daos.MobileDAO;
+import dtos.Mobile;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -35,6 +37,7 @@ public class RemoveShoppingCartController extends HttpServlet {
      */
     protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
+        MobileDAO mobileDAO = new MobileDAO();
 
         String[] mobileIds = GetParam.getStringArrayParams(request, "mobileId", "Mobile ID");
         if (mobileIds == null) {
@@ -50,13 +53,19 @@ public class RemoveShoppingCartController extends HttpServlet {
         }
 
         for (String mobileId : mobileIds) {
+         
+            if (!cartListId.containsKey(mobileId)) {
+                request.setAttribute("errorMessage", "Mobile is not in your shopping cart!");
+                return false;
+            }
+            
             if (cartListId.containsKey(mobileId)) {
                 cartListId.remove(mobileId);
             }
         }
 
         session.setAttribute("cartListId", cartListId);
-        request.setAttribute("errorMessage", "Remove items success!");
+        request.setAttribute("message", "Remove items success!");
 
         return true;
 

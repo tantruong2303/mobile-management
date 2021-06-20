@@ -37,10 +37,24 @@ public class StaffController extends HttpServlet {
      */
     protected boolean processRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         MobileDAO mobileDAO = new MobileDAO();
-        
-        ArrayList<Mobile> mobileList = mobileDAO.getAllMobiles();
-        
-        request.setAttribute("mobileList", mobileList);
+
+        String search = GetParam.getStringParam(request, "search", "Name or ID", 1, 20, "");
+
+        ArrayList<Mobile> allMobileList = mobileDAO.getAllMobiles();
+        ArrayList<Mobile> result = new ArrayList<>();
+
+        for (int i = 0; i < allMobileList.size(); i++) {
+            if (allMobileList.get(i).getMobileId().contains(search) || allMobileList.get(i).getMobileName().contains(search)) {
+                result.add(allMobileList.get(i));
+            }
+        }
+
+        if (result.isEmpty()) {
+            request.setAttribute("errorMessage", "No result is found!");
+            return false;
+        }
+
+        request.setAttribute("mobileList", result);
         return true;
     }
 

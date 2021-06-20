@@ -19,13 +19,15 @@
     <body>
         <%
             String errorMessage = (String) GetParam.getClientAttribute(request, "errorMessage", "");
+            String mobileIdError = (String) GetParam.getClientAttribute(request, "mobileIdError", "");
+            String message = (String) GetParam.getClientAttribute(request, "message", "");
         %>
 
+        <%@include file="navbar.jsp" %>
         <h1>User Shopping Cart</h1>
 
-        <button><a style="text-decoration: none; color: black" href="<%= Urls.USER_CONTROLLER%> ">USER MENU</a></button>
-        <button><a style="text-decoration: none; color: black" href="<%= Urls.LOGOUT_CONTROLLER%>">LOG OUT</a></button>
-        <p style="color: red"><%= errorMessage%></p>
+        <p style="color: red"><%= errorMessage + mobileIdError%></p>
+        <p style="color: green"><%= message%></p>
 
         <table border="1" style="text-align: center" >
             <form action="<%= Urls.REMOVE_SHOPPING_CART_CONTROLLER%>">

@@ -28,8 +28,7 @@ import ultils.Urls;
  * @author Lenovo
  */
 @WebFilter(filterName = "StaffControllerFilter", urlPatterns = {"/" + Urls.ADD_MOBILE_CONTROLLER,
-    "/" + Urls.DELETE_MOBILE_CONTROLLER, "/" + Urls.SEARCH_CONTROLLER,
-    "/" + Urls.STAFF_CONTROLLER, "/" + Urls.UPDATE_MOBILE_CONTROLLER})
+    "/" + Urls.DELETE_MOBILE_CONTROLLER, "/" + Urls.STAFF_CONTROLLER, "/" + Urls.UPDATE_MOBILE_CONTROLLER})
 public class StaffControllerFilter implements Filter {
 
     @Override

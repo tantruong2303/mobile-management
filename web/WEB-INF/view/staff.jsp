@@ -20,6 +20,7 @@
         <%
             String mobileId = (String) GetParam.getClientParams(request, "mobileId", "");
             
+            String message = (String) GetParam.getClientAttribute(request, "message", "");
             String searchError = (String) GetParam.getClientAttribute(request, "searchError", "");
             String errorMessage = (String) GetParam.getClientAttribute(request, "errorMessage", "");
             String mobileIdError = (String) GetParam.getClientAttribute(request, "mobileIdError", "");
@@ -31,16 +32,16 @@
             String notSaleError = (String) GetParam.getClientAttribute(request, "notSaleError", "");
         %>
 
+        <%@include file="navbar.jsp" %>
         <h1>Staff Menu</h1>
 
-        <form action="<%=Urls.SEARCH_CONTROLLER%>" method="GET">
+        <form action="<%= Urls.STAFF_CONTROLLER %>" method="GET">
             <input type="text" name="search" placeholder="Enter Name or ID" />
             <button type="submit">Search</button> 
         </form>
-            
-        <button><a style="text-decoration: none; color: black" href="<%= Urls.ADD_MOBILE_CONTROLLER%>">ADD NEW MOBILE DEVICE</a></button>
-        <button><a style="text-decoration: none; color: black" href="<%= Urls.LOGOUT_CONTROLLER%>">LOG OUT</a></button>
+       
         <p style="color: red"><%= errorMessage + searchError + mobileIdError%></p>
+        <p style="color: green"><%= message%></p>
 
         <table style="text-align: center" >
             <% ArrayList<Mobile> mobileList = (ArrayList<Mobile>) GetParam.getClientAttribute(request, "mobileList", new ArrayList<>());
@@ -80,7 +81,7 @@
                         <% }%>
                     </td> 
                     <td><button type="submit">Edit</button> </td>
-                    <td><button><a onclick="return confirmation()" href="<%=Urls.DELETE_MOBILE_CONTROLLER%>?mobileId=<%= mobile.getMobileId()%>" >Delete</a></button></td>
+                    <td><a onclick="return confirmation()" href="<%= Urls.DELETE_MOBILE_CONTROLLER%>?mobileId=<%= mobile.getMobileId()%>">Delete</a></td>
                 </tr>
             </form>
 

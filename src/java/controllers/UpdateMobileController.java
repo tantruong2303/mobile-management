@@ -62,7 +62,7 @@ public class UpdateMobileController extends HttpServlet {
             return false;
         }
 
-        request.setAttribute("errorMessage", "Update mobile success!");
+        request.setAttribute("message", "Update mobile success!");
 
         return true;
     }

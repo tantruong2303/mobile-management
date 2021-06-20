@@ -102,7 +102,7 @@ public class GetParam {
     public static String[] getStringArrayParams(HttpServletRequest request, String field, String label) {
         String[] input = request.getParameterValues(field);
         if (input == null) {
-            request.setAttribute(field + "Error", label + "is required");
+            request.setAttribute(field + "Error", label + " is required");
             return null;
         }
 

@@ -13,22 +13,22 @@ public class OrderDetail {
 
     private int orderDetailId;
     private int orderId;
-    private String mobileId;
+    private Mobile mobile;
     private float unitPrice;
     private int quantity;
 
-    public OrderDetail(int orderId, String mobileId, float unitPrice, int quantity) {
+    public OrderDetail(int orderId, Mobile mobile, float unitPrice, int quantity) {
         this.orderId = orderId;
-        this.mobileId = mobileId;
+        this.mobile = mobile;
         this.unitPrice = unitPrice;
         this.quantity = quantity;
         this.orderDetailId = 0;
     }
 
-    public OrderDetail(int orderDetailId, int orderId, String mobileId, float unitPrice, int quantity) {
+    public OrderDetail(int orderDetailId, int orderId, Mobile mobile, float unitPrice, int quantity) {
         this.orderDetailId = orderDetailId;
         this.orderId = orderId;
-        this.mobileId = mobileId;
+        this.mobile = mobile;
         this.unitPrice = unitPrice;
         this.quantity = quantity;
     }
@@ -49,12 +49,12 @@ public class OrderDetail {
         this.orderId = orderId;
     }
 
-    public String getMobileId() {
-        return mobileId;
+    public Mobile getMobile() {
+        return mobile;
     }
 
-    public void setMobileId(String mobileId) {
-        this.mobileId = mobileId;
+    public void setMobile(Mobile mobile) {
+        this.mobile = mobile;
     }
 
     public float getUnitPrice() {

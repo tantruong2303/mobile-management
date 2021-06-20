@@ -82,7 +82,7 @@ public class AddToCartController extends HttpServlet {
         }
 
         session.setAttribute("cartListId", updateCartListId);
-        request.setAttribute("errorMessage", "Add to card success!");
+        request.setAttribute("message", "Add to card success!");
 
         return true;
     }

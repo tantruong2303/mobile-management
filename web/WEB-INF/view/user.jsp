@@ -17,11 +17,13 @@
     </head>
     <body>
         <%
+            String message = (String) GetParam.getClientAttribute(request, "message", "");
             String errorMessage = (String) GetParam.getClientAttribute(request, "errorMessage", "");
             String minPriceError = (String) GetParam.getClientAttribute(request, "minPriceError", "");
             String maxPriceError = (String) GetParam.getClientAttribute(request, "maxPriceError", "");
         %>
 
+        <%@include file="navbar.jsp" %>
         <h1>User Menu</h1>
 
 
@@ -38,9 +40,9 @@
             </div>
             <button type="submit">Search</button> 
         </form>
-        <button><a style="text-decoration: none; color: black" href="<%= Urls.SHOPPING_CART_CONTROLLER%>">SHOPPING CART</a></button>
-        <button><a style="text-decoration: none; color: black" href="<%= Urls.LOGOUT_CONTROLLER%>">LOG OUT</a></button>
+
         <p style="color: red"><%= errorMessage + minPriceError + maxPriceError%></p>
+        <p style="color: green"><%= message%></p>
 
         <table border="1" style="text-align: center" >
             <% ArrayList<Mobile> mobileList = (ArrayList<Mobile>) GetParam.getClientAttribute(request, "mobileList", new ArrayList<>());
@@ -53,14 +55,11 @@
                 <td>Year Of Production</td>
                 <td>Price</td>
                 <td>Quantity</td>
-                <td>Not Sale</td>
+
             </tr>
             <%
                 for (Mobile mobile : mobileList) {
             %>
-
-
-            <tr>
 
             <tr>
                 <td><%= mobile.getMobileId()%></td>

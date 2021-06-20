@@ -28,7 +28,7 @@ CREATE TABLE tbl_Orders (
 CREATE TABLE tbl_OrderDetails (
 	orderDetailId INT IDENTITY(1,1) NOT NULL PRIMARY KEY CLUSTERED,
 	orderId int FOREIGN KEY REFERENCES tbl_Orders(orderId),
-	mobileId varchar(10) FOREIGN KEY REFERENCES tbl_Mobile(mobileId),
+	mobileId varchar(10) FOREIGN KEY REFERENCES tbl_Mobile(mobileId) ON DELETE CASCADE,
 	unitPrice float,
 	quantity int,
 );
