@@ -40,16 +40,16 @@ public class Helper {
         if (session == null) {
             return false;
         }
-        String username = (String) session.getAttribute("username");
+        String userId = (String) session.getAttribute("userId");
 
-        return username != null;
+        return userId != null;
     }
 
     public static boolean correctRole(HttpServletRequest request, int minRole, int maxRole) {
         HttpSession session = request.getSession(false);
-        Integer roleR = (Integer) session.getAttribute("role");
+        Integer role = (Integer) session.getAttribute("role");
 
-        return roleR != null && roleR >= minRole && roleR <= maxRole;
+        return role != null && role >= minRole && role <= maxRole;
     }
 
     public static String generateMobileId() throws Exception {

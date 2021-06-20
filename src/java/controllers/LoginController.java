@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import ultils.GetParam;
+import ultils.Helper;
 import ultils.Urls;
 
 /**
@@ -39,6 +40,11 @@ public class LoginController extends HttpServlet {
 
         // initialize resource
         UserDAO userDAO = new UserDAO();
+        
+        if(Helper.isLogin(request)) {
+            request.setAttribute("errorMessage", "Please logout before login another account!");
+            return false;
+        }
 
         // validate params
         String userId = GetParam.getStringParam(request, "userId", "User ID", 1, 20, null);
@@ -50,7 +56,7 @@ public class LoginController extends HttpServlet {
         // checking exist user and correct password
         User user = userDAO.getOneUserByUserId(userId);
         if (user == null || !(user.getPassword() == password)) {
-            request.setAttribute("errorMessage", "User Id or Password is not correct");
+            request.setAttribute("errorMessage", "User Id or Password is not correct!");
             return false;
         }
 
