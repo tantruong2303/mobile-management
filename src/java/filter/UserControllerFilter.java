@@ -20,39 +20,35 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import ultils.Helper;
 import ultils.Urls;
 
 /**
  *
  * @author Lenovo
  */
-@WebFilter(filterName = "LoginControllerFilter", urlPatterns = {"/" + Urls.LOGIN_CONTROLLER,})
-public class LoginControllerFilter implements Filter {
+@WebFilter(filterName = "UserControllerFilter", urlPatterns = {"/" + Urls.ADD_TO_CART_CONTROLLER,
+    "/" + Urls.ORDER_CONTROLLER, "/" + Urls.REMOVE_SHOPPING_CART_CONTROLLER,
+    "/" + Urls.SHOPPING_CART_CONTROLLER, "/" + Urls.USER_CONTROLLER})
+public class UserControllerFilter implements Filter {
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
         try {
-
-            HttpSession session = req.getSession(false);
-            if (session != null) {
-                String userId = (String) session.getAttribute("userId");
-
-                Integer role = (Integer) session.getAttribute("role");
-
-                if (userId != null && role != null) {
-                    request.setAttribute("errorMessage", "Action is not allow, please logout first");
-                    request.getRequestDispatcher(Urls.ERROR_PAGE).forward(request, response);
-                    return;
-                }
+            Context env = (Context) new InitialContext().lookup("java:comp/env");
+            Integer userRole = (Integer) env.lookup("userRole");
+            if (!Helper.protectedRouter(req, res, userRole, userRole, Urls.LOGIN_PAGE)) {
+                return;
             }
 
             chain.doFilter(request, response);
         } catch (Exception e) {
             e.printStackTrace();
+            request.getRequestDispatcher(Urls.ERROR_PAGE).forward(request, response);
         }
     }
 

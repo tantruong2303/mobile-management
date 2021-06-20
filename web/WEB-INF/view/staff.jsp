@@ -90,12 +90,10 @@
                 <td>Quantity</td>
                 <td>Not Sale</td>
             </tr>
-            <%
-                for (Mobile mobile : mobileList) {
-            %>
+            <% for (Mobile mobile : mobileList) {%>
 
 
-            <tr>
+
             <form action="<%= Urls.UPDATE_MOBILE_CONTROLLER%>" method="POST">
                 <tr>
                     <td><input type="text" name="mobileId" value="<%= mobile.getMobileId()%>" readonly="true"/></td>
@@ -104,56 +102,48 @@
                     <td><input type="text" name="description" value="<%= mobile.getDescription()%>"/></td>
                     <td><input type="text" name="yearOfProduction" value="<%= mobile.getYearOfProduction()%>"/></td>
                     <td><input type="text" name="quantity" value="<%= mobile.getQuantity()%>"/></td>
-                    <td> <% if (!mobile.isNotSale()) {
-                        %>
+                    <td><% if (!mobile.isNotSale()) { %>
                         <input type="radio" id="notSale" name="notSale" value="0" />
                         <label for="notSale">Not sale</label>
                         <input type="radio" id="sale" name="notSale" value="1" checked/>
                         <label for="sale">Sale</label>
-                        <% } else {
-                        %>
+                        <% } else { %>
                         <input type="radio" id="notSale" name="notSale" value="0" checked/>
                         <label for="notSale">Not sale</label>
                         <input type="radio" id="sale" name="notSale" value="1" />
                         <label for="sale">Sale</label>
-                        <% }
-                        %>
+                        <% }%>
                     </td> <td><button type="submit">Edit</button> </td>
                     <td><button><a onclick="return confirmation()" href="<%=Urls.DELETE_MOBILE_CONTROLLER%>?mobileId=<%= mobile.getMobileId()%>" >Delete</a></button></td>
+                </tr>
             </form>
-        </tr>
-        <tr>
-            <% if (mobile.getMobileId().equals(mobileId)) {
-            %>
-            <td style="color: red"><%= mobileIdError%></td>
-            <td style="color: red"><%= mobileNameError%></td>
-            <td style="color: red"><%= priceError%></td>
-            <td style="color: red"><%= descriptionError%></td>
-            <td style="color: red"><%= yearOfProductionError%></td>
-            <td style="color: red"><%= quantityError%></td>
-            <td style="color: red"><%= notSaleError%></td>
-            <%
-                }
-            %>
-        </tr>
 
-    </tr>
-    <%      }
-    } else {
-    %>
-    <h2> Mobile list is empty! </h2>
-    <%
-        }
-    %>
-
-</table>
+            <tr>
+                <% if (mobile.getMobileId().equals(mobileId)) {%>
+                <td style="color: red"><%= mobileIdError%></td>
+                <td style="color: red"><%= mobileNameError%></td>
+                <td style="color: red"><%= priceError%></td>
+                <td style="color: red"><%= descriptionError%></td>
+                <td style="color: red"><%= yearOfProductionError%></td>
+                <td style="color: red"><%= quantityError%></td>
+                <td style="color: red"><%= notSaleError%></td>
+                <% } %>
+            </tr>
 
 
-<script>
-    function confirmation() {
-        const message = confirm("Do you really want to delete this mobile?");
-        return message;
-    }
-</script>
-</body>
+            <% }
+            } else { %>
+            <h2> Mobile list is empty! </h2>
+            <% }%>
+
+        </table>
+
+
+        <script>
+            function confirmation() {
+                const message = confirm("Do you really want to delete this mobile?");
+                return message;
+            }
+        </script>
+    </body>
 </html>

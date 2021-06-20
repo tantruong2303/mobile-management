@@ -92,13 +92,5 @@
             %>
 
         </table>
-
-
-        <script>
-            function confirmation() {
-                const message = confirm("Do you really want to delete this mobile?");
-                return message;
-            }
-        </script>
     </body>
 </html>

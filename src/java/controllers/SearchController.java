@@ -76,9 +76,11 @@ public class SearchController extends HttpServlet {
             throws ServletException, IOException {
         try {
             if (processRequest(request, response)) {
-                response.sendRedirect(Urls.STAFF_CONTROLLER);
-            }
-            else {
+                request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
+            } else {
+                MobileDAO mobileDAO = new MobileDAO();
+                ArrayList<Mobile> mobileList = mobileDAO.getMobiles(0, Float.MAX_VALUE);
+                request.setAttribute("mobileList", mobileList);
                 request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
             }
         } catch (Exception e) {

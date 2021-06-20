@@ -83,7 +83,7 @@
 
                 <tr>
                     <td><h3>Total: <%= total%></h3></td>
-                    <td><a href="<%= Urls.ORDER_CONTROLLER %>"><h2>Buy</h2></a></td>
+                    <td><a onclick="return confirmation()" href="<%= Urls.ORDER_CONTROLLER %>"><h2>Buy</h2></a></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -106,7 +106,7 @@
 
         <script>
             function confirmation() {
-                const message = confirm("Do you really want to remove?");
+                const message = confirm("Do you really want to buy?");
                 return message;
             }
         </script>
