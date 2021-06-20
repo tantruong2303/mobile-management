@@ -40,7 +40,7 @@ public class UserDAO {
 
         try {
             connection = Connector.getConnection();
-            String sql = "SELECT * FROM tbl_User WHERE userId=?";
+            String sql = "SELECT userId, password, fullName, role FROM tbl_User WHERE userId = ?";
             preStm = connection.prepareStatement(sql);
             preStm.setString(1, userId);
             resultSet = preStm.executeQuery();

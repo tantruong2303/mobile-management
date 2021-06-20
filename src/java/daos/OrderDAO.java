@@ -41,7 +41,7 @@ public class OrderDAO {
         ArrayList<Order> orderList = new ArrayList<>();
         try {
             connection = Connector.getConnection();
-            String query = "SELECT * FROM tbl_Orders";
+            String query = "SELECT orderId, customerId, orderDate, total FROM tbl_Orders";
             preStm = connection.prepareStatement(query);
             resultSet = preStm.executeQuery();
 

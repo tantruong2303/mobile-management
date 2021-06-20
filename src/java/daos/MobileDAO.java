@@ -40,7 +40,7 @@ public class MobileDAO {
         boolean isSuccess = false;
         try {
             connection = Connector.getConnection();
-            String query = "INSERT INTO tbl_Mobile VALUES (?,?,?,?,?,?,?)";
+            String query = "INSERT INTO tbl_Mobile (mobileId, description, price, mobileName, yearOfProduction, quantity, notSale) VALUES (?,?,?,?,?,?,?)";
             preStm = connection.prepareStatement(query);
             preStm.setString(1, mobile.getMobileId());
             preStm.setString(2, mobile.getDescription());
@@ -83,7 +83,7 @@ public class MobileDAO {
         ArrayList<Mobile> mobileList = new ArrayList<>();
         try {
             connection = Connector.getConnection();
-            String query = "SELECT * FROM tbl_Mobile WHERE price >= ? AND price <= ? ORDER BY price ASC";
+            String query = "SELECT mobileId, description, price, mobileName, yearOfProduction, quantity, notSale FROM tbl_Mobile WHERE price >= ? AND price <= ? ORDER BY price ASC";
             preStm = connection.prepareStatement(query);
             preStm.setFloat(1, min);
             preStm.setFloat(2, max);
@@ -127,7 +127,7 @@ public class MobileDAO {
         Mobile mobile = null;
         try {
             connection = Connector.getConnection();
-            String query = "SELECT * FROM tbl_Mobile WHERE " + field + " = ?";
+            String query = "SELECT mobileId, description, price, mobileName, yearOfProduction, quantity, notSale FROM tbl_Mobile WHERE " + field + " = ?";
             preStm = connection.prepareStatement(query);
 
             preStm.setString(1, value);
