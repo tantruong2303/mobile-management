@@ -38,4 +38,10 @@ public class ShoppingCartController extends HttpServlet {
             throws ServletException, IOException {
         request.getRequestDispatcher(Urls.SHOPPING_CART_PAGE).forward(request, response);
     }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        this.doGet(request, response);
+    }
 }

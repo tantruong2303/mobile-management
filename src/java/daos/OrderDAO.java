@@ -6,6 +6,7 @@
 package daos;
 
 import dtos.Order;
+import dtos.User;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -41,6 +42,8 @@ public class OrderDAO {
         ArrayList<Order> orderList = new ArrayList<>();
         try {
             connection = Connector.getConnection();
+            UserDAO userDAO = new UserDAO();
+
             String query = "SELECT orderId, customerId, orderDate, total FROM tbl_Orders";
             preStm = connection.prepareStatement(query);
             resultSet = preStm.executeQuery();
@@ -50,16 +53,20 @@ public class OrderDAO {
                 String customerId = resultSet.getString("customerId");
                 float total = resultSet.getFloat("total");
                 Date orderDate = resultSet.getDate("orderDate");
-                Order order = new Order(orderId, customerId, orderDate, total);
-                orderList.add(order);
+
+                User customer = userDAO.getOneUserByUserId(customerId);
+                if (customer != null) {
+                    Order order = new Order(orderId, customer, orderDate, total);
+                    orderList.add(order);
+                }
+
             }
         } finally {
             this.closeConnection();
         }
         return orderList;
     }
-    
-    
+
     public boolean addOneOrder(Order order) throws Exception {
         boolean isSuccess = false;
         try {
@@ -67,7 +74,7 @@ public class OrderDAO {
             String query = "INSERT INTO tbl_Orders (orderId, customerId, orderDate, total) VALUES (?, ?, ?, ?)";
             preStm = connection.prepareStatement(query);
             preStm.setInt(1, order.getOrderId());
-            preStm.setString(2, order.getCustomerId());
+            preStm.setString(2, order.getCustomer().getUserId());
             preStm.setDate(3, order.getOrderDate());
             preStm.setFloat(4, order.getTotal());
 
@@ -77,7 +84,7 @@ public class OrderDAO {
         }
         return isSuccess;
     }
-    
+
     public boolean updateOneOrder(Order order) throws Exception {
         boolean isSuccess = false;
         try {
@@ -85,7 +92,7 @@ public class OrderDAO {
             String query = "UPDATE tbl_Orders SET customerId = ?, orderDate = ?, total = ? WHERE orderId = ?";
             preStm = connection.prepareStatement(query);
             preStm.setInt(4, order.getOrderId());
-            preStm.setString(1, order.getCustomerId());
+            preStm.setString(1, order.getCustomer().getUserId());
             preStm.setDate(2, order.getOrderDate());
             preStm.setFloat(3, order.getTotal());
 

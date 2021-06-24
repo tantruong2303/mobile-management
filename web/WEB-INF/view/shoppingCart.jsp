@@ -56,9 +56,6 @@
                         total += mobile.getPrice() * mobileList.get(mobileId);
                 %>
 
-
-                <tr>
-
                 <tr>
                     <td><%= mobile.getMobileId()%></td>
                     <td><%= mobile.getMobileName()%></td>

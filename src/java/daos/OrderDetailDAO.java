@@ -41,7 +41,7 @@ public class OrderDetailDAO {
             connection = Connector.getConnection();
             String query = "INSERT INTO tbl_OrderDetails (orderId, mobileId, unitPrice, quantity) VALUES (?, ?, ?, ?)";
             preStm = connection.prepareStatement(query);
-            preStm.setInt(1, orderDetail.getOrderId());
+            preStm.setInt(1, orderDetail.getOrder().getOrderId());
             preStm.setString(2, orderDetail.getMobile().getMobileId());
             preStm.setFloat(3, orderDetail.getUnitPrice());
             preStm.setInt(4, orderDetail.getQuantity());

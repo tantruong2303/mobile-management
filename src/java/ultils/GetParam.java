@@ -26,11 +26,11 @@ public class GetParam {
             return defaultValue;
         }
         if (value.trim().length() > max) {
-            request.setAttribute(field + "Error", label + " is less than " + max + " character(s)");
+            request.setAttribute(field + "Error", label + " is less than or equal " + max + " character(s)");
             return null;
         }
         if (value.trim().length() < min) {
-            request.setAttribute(field + "Error", label + " is greater than " + min + " character(s)");
+            request.setAttribute(field + "Error", label + " is greater than or equal " + min + " character(s)");
             return null;
         }
         return value;
@@ -52,15 +52,15 @@ public class GetParam {
         try {
             realValue = Integer.parseInt(value);
         } catch (NumberFormatException e) {
-            request.setAttribute(field + "Error", label + " must be a number and less than " + Integer.MAX_VALUE);
+            request.setAttribute(field + "Error", label + " must be a number and less than or equal " + Integer.MAX_VALUE);
             return null;
         }
         if (realValue > max) {
-            request.setAttribute(field + "Error", label + " is less than " + max);
+            request.setAttribute(field + "Error", label + " is less than or equal " + max);
             return null;
         }
         if (realValue < min) {
-            request.setAttribute(field + "Error", label + " is greater than " + min);
+            request.setAttribute(field + "Error", label + " is greater than or equal " + min);
             return null;
         }
 
@@ -84,15 +84,15 @@ public class GetParam {
             realValue = Float.parseFloat(value);
         } catch (NumberFormatException e) {
 
-            request.setAttribute(field + "Error", label + " must be a number and less than " + Float.MAX_VALUE);
+            request.setAttribute(field + "Error", label + " must be a number and less than or equal " + Float.MAX_VALUE);
             return null;
         }
         if (realValue > max) {
-            request.setAttribute(field + "Error", label + " is less than " + max);
+            request.setAttribute(field + "Error", label + " is less than or equal " + max);
             return null;
         }
         if (realValue < min) {
-            request.setAttribute(field + "Error", label + " is greater than " + min);
+            request.setAttribute(field + "Error", label + " is greater than or equal " + min);
             return null;
         }
 

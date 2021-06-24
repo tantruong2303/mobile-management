@@ -12,22 +12,22 @@ package dtos;
 public class OrderDetail {
 
     private int orderDetailId;
-    private int orderId;
+    private Order order;
     private Mobile mobile;
     private float unitPrice;
     private int quantity;
 
-    public OrderDetail(int orderId, Mobile mobile, float unitPrice, int quantity) {
-        this.orderId = orderId;
+    public OrderDetail(Order order, Mobile mobile, float unitPrice, int quantity) {
+        this.order = order;
         this.mobile = mobile;
         this.unitPrice = unitPrice;
         this.quantity = quantity;
         this.orderDetailId = 0;
     }
 
-    public OrderDetail(int orderDetailId, int orderId, Mobile mobile, float unitPrice, int quantity) {
+    public OrderDetail(int orderDetailId, Order order, Mobile mobile, float unitPrice, int quantity) {
         this.orderDetailId = orderDetailId;
-        this.orderId = orderId;
+        this.order = order;
         this.mobile = mobile;
         this.unitPrice = unitPrice;
         this.quantity = quantity;
@@ -41,12 +41,12 @@ public class OrderDetail {
         this.orderDetailId = orderDetailId;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public Mobile getMobile() {

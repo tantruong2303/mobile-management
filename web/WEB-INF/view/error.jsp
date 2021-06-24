@@ -20,9 +20,6 @@
         <%@include file="navbar.jsp" %>
         <div class="text-center">
             <h1><%= errorMessage%></h1>
-            <a href="IndexController">
-                Go Back To Home
-            </a >
         </div>
     </body>
 </html>

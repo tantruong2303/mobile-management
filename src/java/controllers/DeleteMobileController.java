@@ -67,13 +67,10 @@ public class DeleteMobileController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-            MobileDAO mobileDAO = new MobileDAO();
-            ArrayList<Mobile> mobileList = mobileDAO.getAllMobiles();
-            request.setAttribute("mobileList", mobileList);
-            request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
+            request.getRequestDispatcher(Urls.STAFF_CONTROLLER).forward(request, response);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            request.setAttribute("errorMessage", "Something went wrong!");
             request.getRequestDispatcher(Urls.ERROR_PAGE).forward(request, response);
         }
     }

@@ -16,20 +16,20 @@ import java.sql.Date;
 public class Order {
 
     private int orderId;
-    private String customerId;
+    private User customer;
     private Date orderDate;
     private float total;
 
-    public Order(int orderId, String customerId, Date orderDate, float total) {
+    public Order(int orderId, User customer, Date orderDate, float total) {
         this.orderId = orderId;
-        this.customerId = customerId;
+        this.customer = customer;
         this.orderDate = orderDate;
         this.total = total;
     }
 
-    public Order(String customerId, Date orderDate, float total) {
+    public Order(User customer, Date orderDate, float total) {
         this.orderId = 0;
-        this.customerId = customerId;
+        this.customer = customer;
         this.orderDate = orderDate;
         this.total = total;
     }
@@ -42,12 +42,12 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public String getCustomerId() {
-        return customerId;
+    public User getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public void setCustomer(User customer) {
+        this.customer = customer;
     }
 
     public Date getOrderDate() {

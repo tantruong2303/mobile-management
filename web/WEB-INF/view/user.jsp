@@ -19,6 +19,7 @@
         <%
             String message = (String) GetParam.getClientAttribute(request, "message", "");
             String errorMessage = (String) GetParam.getClientAttribute(request, "errorMessage", "");
+            String mobileIdError = (String) GetParam.getClientAttribute(request, "mobileIdError", "");
             String minPriceError = (String) GetParam.getClientAttribute(request, "minPriceError", "");
             String maxPriceError = (String) GetParam.getClientAttribute(request, "maxPriceError", "");
         %>
@@ -41,7 +42,7 @@
             <button type="submit">Search</button> 
         </form>
 
-        <p style="color: red"><%= errorMessage + minPriceError + maxPriceError%></p>
+        <p style="color: red"><%= errorMessage + minPriceError + maxPriceError + mobileIdError %></p>
         <p style="color: green"><%= message%></p>
 
         <table border="1" style="text-align: center" >
@@ -66,7 +67,7 @@
                 <td><%= mobile.getMobileName()%></td>
                 <td><%= mobile.getDescription()%></td>
                 <td><%= mobile.getYearOfProduction()%></td>
-                <td><%= mobile.getPrice()%></td>
+                <td>$<%= mobile.getPrice()%></td>
                 <td><%= mobile.getQuantity()%></td>
 
                 <td><a href="<%= Urls.ADD_TO_CART_CONTROLLER%>?mobileId=<%= mobile.getMobileId()%>">Add To Cart</a></td>

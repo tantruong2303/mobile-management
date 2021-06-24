@@ -114,7 +114,7 @@ public class LoginController extends HttpServlet {
             request.getRequestDispatcher(Urls.LOGIN_PAGE).forward(request, response);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            request.setAttribute("errorMessage", "Something went wrong!");
             request.getRequestDispatcher(Urls.ERROR_PAGE).forward(request, response);
         }
     }

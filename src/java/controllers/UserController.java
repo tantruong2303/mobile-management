@@ -8,7 +8,6 @@ package controllers;
 import daos.MobileDAO;
 import dtos.Mobile;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -73,9 +72,15 @@ public class UserController extends HttpServlet {
             processRequest(request, response);
             request.getRequestDispatcher(Urls.USER_PAGE).forward(request, response);
         } catch (Exception e) {
-            e.printStackTrace();
+            request.setAttribute("errorMessage", "Something went wrong!");
             request.getRequestDispatcher(Urls.ERROR_PAGE).forward(request, response);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        this.doGet(request, response);
     }
 
 }

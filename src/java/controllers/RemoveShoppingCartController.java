@@ -84,9 +84,10 @@ public class RemoveShoppingCartController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-            request.getRequestDispatcher(Urls.SHOPPING_CART_PAGE).forward(request, response);
+            request.getRequestDispatcher(Urls.SHOPPING_CART_CONTROLLER).forward(request, response);
 
         } catch (Exception e) {
+            request.setAttribute("errorMessage", "Something went wrong!");
             request.getRequestDispatcher(Urls.ERROR_PAGE).forward(request, response);
         }
 

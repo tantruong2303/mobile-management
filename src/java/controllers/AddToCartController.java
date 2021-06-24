@@ -101,11 +101,9 @@ public class AddToCartController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-            MobileDAO mobileDAO = new MobileDAO();
-            ArrayList<Mobile> mobileList = mobileDAO.getMobiles(0, Float.MAX_VALUE);
-            request.setAttribute("mobileList", mobileList);
-            request.getRequestDispatcher(Urls.USER_PAGE).forward(request, response);
+            request.getRequestDispatcher(Urls.USER_CONTROLLER).forward(request, response);
         } catch (Exception e) {
+            request.setAttribute("errorMessage", "Something went wrong!");
             request.getRequestDispatcher(Urls.ERROR_PAGE).forward(request, response);
         }
     }

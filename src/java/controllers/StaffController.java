@@ -74,8 +74,14 @@ public class StaffController extends HttpServlet {
             processRequest(request, response);
             request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
         } catch (Exception e) {
-            e.printStackTrace();
+            request.setAttribute("errorMessage", "Something went wrong!");
             request.getRequestDispatcher(Urls.ERROR_PAGE).forward(request, response);
         }
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        this.doGet(request, response);
     }
 }

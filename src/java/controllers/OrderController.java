@@ -66,7 +66,7 @@ public class OrderController extends HttpServlet {
         Date orderDate = Helper.getCurrentDate();
         float total = 0F;
 
-        Order order = new Order(orderId, user.getUserId(), orderDate, total);
+        Order order = new Order(orderId, user, orderDate, total);
         if (!orderDAO.addOneOrder(order)) {
             request.setAttribute("errorMessage", "Some thing went wrong!");
             return false;
@@ -84,7 +84,7 @@ public class OrderController extends HttpServlet {
                 return false;
             }
 
-            OrderDetail orderDetail = new OrderDetail(orderId, mobile, mobile.getPrice(), cartListId.get(mobileId));
+            OrderDetail orderDetail = new OrderDetail(order, mobile, mobile.getPrice(), cartListId.get(mobileId));
 
             if (orderDetail.getQuantity() > mobile.getQuantity()) {
                 request.setAttribute("errorMessage", "Invalid quantity!");
@@ -109,7 +109,7 @@ public class OrderController extends HttpServlet {
 
         order.setTotal(total);
         if (!orderDAO.updateOneOrder(order)) {
-            request.setAttribute("errorMessage", "Some thing went wrong!");
+            request.setAttribute("errorMessage", "Something went wrong!");
             return false;
         }
 
@@ -134,15 +134,12 @@ public class OrderController extends HttpServlet {
 
         try {
             if (processRequest(request, response)) {
-                MobileDAO mobileDAO = new MobileDAO();
-                ArrayList<Mobile> mobileList = mobileDAO.getMobiles(0, Float.MAX_VALUE);
-                request.setAttribute("mobileList", mobileList);
-                request.getRequestDispatcher(Urls.USER_PAGE).forward(request, response);
+                request.getRequestDispatcher(Urls.USER_CONTROLLER).forward(request, response);
             } else {
-                request.getRequestDispatcher(Urls.SHOPPING_CART_PAGE).forward(request, response);
+                request.getRequestDispatcher(Urls.SHOPPING_CART_CONTROLLER).forward(request, response);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            request.setAttribute("errorMessage", "Something went wrong!");
             request.getRequestDispatcher(Urls.ERROR_PAGE).forward(request, response);
         }
     }

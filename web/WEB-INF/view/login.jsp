@@ -14,7 +14,7 @@
         <title>Login</title>
     </head>
     <body >
-        <%       
+        <%
             String errorMessage = (String) GetParam.getClientAttribute(request, "errorMessage", "");
             String userIdError = (String) GetParam.getClientAttribute(request, "userIdError", "");
             String passwordError = (String) GetParam.getClientAttribute(request, "passwordError", "");
@@ -22,7 +22,7 @@
 
         <%@include file="navbar.jsp" %>
         <h1>Login From</h1>
-        <form action="<%=Urls.LOGIN_CONTROLLER %>" method = "POST">
+        <form action="<%=Urls.LOGIN_CONTROLLER%>" method = "POST">
             <table>
                 <tr>
                     <td>  </td>
@@ -49,5 +49,21 @@
                 </tr>
             </table>
         </form>
+        <div style="padding: 50px 0 0 80px">
+            <table border="1">
+                <tr>
+                    <td>User ID</td>
+                    <td>Password</td>
+                </tr>
+                <tr>
+                    <td>user</td>
+                    <td>123</td>
+                </tr>
+                <tr>
+                    <td>staff</td>
+                    <td>123</td>
+                </tr>
+            </table>
+        </div>
     </body>
 </html>

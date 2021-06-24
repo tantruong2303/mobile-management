@@ -56,8 +56,8 @@ public class Helper {
         MobileDAO mobileDAO = new MobileDAO();
 
         ArrayList<Mobile> list = mobileDAO.getMobiles(0, Float.MAX_VALUE);
-
-        return Integer.toString(list.size() + 1);
+        if (list.isEmpty()) return "1";
+        return Integer.toString(Integer.parseInt(list.get(list.size() - 1).getMobileId()) + 1);
     }
 
     public static Integer generateOrderId() throws Exception {
@@ -65,7 +65,8 @@ public class Helper {
 
         ArrayList<Order> list = orderDAO.getAllOrders();
 
-        return (list.size() + 1);
+        if (list.isEmpty()) return 1;
+        return list.get(list.size() - 1).getOrderId() + 1;
     }
 
     public static Date getCurrentDate() {

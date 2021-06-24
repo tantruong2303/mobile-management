@@ -44,7 +44,7 @@ public class AddMobileController extends HttpServlet {
         String description = GetParam.getStringParam(request, "description", "Description", 1, 250, null);
         Float price = GetParam.getFloatParams(request, "price", "Price", 0, Float.MAX_VALUE, null);
         String mobileName = GetParam.getStringParam(request, "mobileName", "Mobile Name", 1, 20, null);
-        Integer yearOfProduction = GetParam.getIntParams(request, "yearOfProduction", "Year Of Production", 2000, 2021, null);
+        Integer yearOfProduction = GetParam.getIntParams(request, "yearOfProduction", "Year Of Production", 1990, 2021, null);
         Integer quantity = GetParam.getIntParams(request, "quantity", "Quantity", 1, Integer.MAX_VALUE, null);
         Integer notSale =  GetParam.getIntParams(request, "notSale", "Not Sale", 0, 1, null);
 
@@ -93,14 +93,12 @@ public class AddMobileController extends HttpServlet {
             throws ServletException, IOException {
         try {
             if (processRequest(request, response)) {
-                MobileDAO mobileDAO = new MobileDAO();
-                ArrayList<Mobile> mobileList = mobileDAO.getMobiles(0, Float.MAX_VALUE);
-                request.setAttribute("mobileList", mobileList);
-                request.getRequestDispatcher(Urls.STAFF_PAGE).forward(request, response);
+                request.getRequestDispatcher(Urls.STAFF_CONTROLLER).forward(request, response);
             } else {
                 request.getRequestDispatcher(Urls.ADD_MOBILE_PAGE).forward(request, response);
             }
         } catch (Exception e) {
+            request.setAttribute("errorMessage", "Something went wrong!");
             request.getRequestDispatcher(Urls.ERROR_PAGE).forward(request, response);
 
         }
